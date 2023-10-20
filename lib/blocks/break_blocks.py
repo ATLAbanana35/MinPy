@@ -22,7 +22,10 @@ class Raycaster:
             hitObject = hitNodePath.getPythonTag('owner')
             distanceFromPlayer = hitObject.getDistance(self.showbase.cameraNode)
 
+            
             hitNodePath.clearPythonTag('owner')
+            index = self.showbase.blocks_for_file.index(hitObject.getPythonTag("data_content"))
+            print(index)
             hitObject.removeNode()
             try:
                 self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])
@@ -30,6 +33,7 @@ class Raycaster:
                 print("ERROR_AT_LINE_30_'self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])'_CORRIGÉE")
             if self.showbase.blocks.get(hitNodePath.getName()) != None:
                 del self.showbase.blocks[hitNodePath.getName()]
+                del self.showbase.blocks_for_file[index]
 class Action_Break_Blocks(ShowBase):
 
     def __init__(self, showbase):
@@ -38,4 +42,4 @@ class Action_Break_Blocks(ShowBase):
         raycaster = Raycaster(self.showbase.world, self.showbase.cameraNode, self.showbase)
 
         # Gestionnaire d'événements de souris
-        self.accept("j", raycaster.cast)
+        self.accept("mouse1", raycaster.cast)

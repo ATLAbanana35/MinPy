@@ -5,6 +5,7 @@ from panda3d.bullet import BulletRigidBodyNode, BulletBoxShape, BulletWorld
 import noise
 import asyncio
 from threading import Lock
+import json
 
 class GenBlocks(ShowBase):
     def generateLineOfBlocks(self, direction):
@@ -55,6 +56,16 @@ class GenBlocks(ShowBase):
                         -int(normalized_height) * 2,  # Utilisez la hauteur calculée
                         'grass' if z == 0 else 'dirt'
                     )
+
+        for y in range(start_y, start_y + plusY, 2):
+            for x in range(start_x, start_x + plusX, 2):
+                self.createNewBlock(
+                    x,
+                    y,
+                    -20,  # Utilisez la hauteur calculée
+                    "bedrock"
+                )
+                    
     def removeLineOfBlocks(self, direction):
         # Paramètres pour le bruit perlin
         plusY = 10
@@ -102,9 +113,26 @@ class GenBlocks(ShowBase):
         persistence = 0.5  # Persistance
         lacunarity = 2.0  # Lacunarity
         height_multiplier = 5  # Ajustez la hauteur souhaitée
-        for z in range(0, 10):
-            for y in range(0, 20):
-                for x in range(0, 20):
+        for y in range(0, 20):
+            for x in range(0, 20):
+                try:
+                    self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": -20}})]
+                    print("AERLY GENERADE")
+                    for z in range(-20, 20):
+                        try:
+                            self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": z}})]
+                            self.createNewBlock(
+                                x * 2 - 20,
+                                y * 2 - 20,
+                                z,  # Utilisez la hauteur calculée
+                                "grass"
+                            )
+                        except KeyError:
+                            print("EST")
+                    print("NOT GEN")
+                except KeyError:
+                    print("NOT GEN")
+                for z in range(0, 10):
                     # Calculez la hauteur en utilisant le bruit perlin
                     noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
                     # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
@@ -115,7 +143,14 @@ class GenBlocks(ShowBase):
                         -int(normalized_height) * 2,  # Utilisez la hauteur calculée
                         'grass' if z == 0 else 'dirt'
                     )
-
+        for y in range(0, 20):
+            for x in range(0, 20):
+                self.createNewBlock(
+                    x,
+                    y,
+                    -20,  # Utilisez la hauteur calculée
+                    "bedrock"
+                )
     def setupLights(self):
         # Créez un nœud parent pour les objets que vous souhaitez éclairer
         lightNode = render.attachNewNode("lightNode")
@@ -153,6 +188,8 @@ class GenBlocks(ShowBase):
             self.showbase.sandBlock.instanceTo(newBlockNode)
         elif type == 'stone':
             self.showbase.stoneBlock.instanceTo(newBlockNode)
+        elif type == 'bedrock':
+            self.showbase.bedrock.instanceTo(newBlockNode)
 
         # Créez une forme de collision Bullet pour le bloc
         shape = BulletBoxShape(LVector3(2, 2, 2))  # Ajustez la taille selon vos besoins
@@ -175,11 +212,17 @@ class GenBlocks(ShowBase):
         blockNode.addSolid(blockSolid)
         collider = newBlockNode.attachNewNode(blockNode)
         collider.setPythonTag('owner', newBlockNode)
+        newBlockNode.setPythonTag('block_type', type)
+        newBlockNode.setPythonTag('data_content', {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}) 
+        newBlockNode.setPythonTag('data', {})
+        self.showbase.blocks_for_file.append({"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}})
+        self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": z}})] = {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}
     def loadModels(self):
         self.showbase.grassBlock = loader.loadModel('./ressources/3d/models/blocks/grass-block.glb')
         self.showbase.dirtBlock = loader.loadModel('./ressources/3d/models/blocks/dirt-block.glb')
         self.showbase.stoneBlock = loader.loadModel('./ressources/3d/models/blocks/stone-block.glb')
         self.showbase.sandBlock = loader.loadModel('./ressources/3d/models/blocks/sand-block.glb')
+        self.showbase.bedrock = loader.loadModel('./ressources/3d/models/blocks/bedrock.glb')
 
         # ...
 

@@ -11,7 +11,9 @@ from lib.action.user_gravity import User_Gravity
 from lib.blocks.gen_block import GenBlocks
 from lib.action.is_user_death import IsUserDead
 from lib.blocks.place_block import Action_Place_Blocks
+from lib.files.save_world import World_Saving
 from threading import Lock
+import json
 
 def setTimeout(fn, ms, *args, **kwargs): 
     t = Timer(ms / 1000., fn, args=args, kwargs=kwargs)
@@ -31,7 +33,11 @@ class Main(ShowBase):
         self.ancien_user_gen = 20
         self.AnPlayerPosY = 5
         self.AnPlayerPosZ = 5
-        self.nodePaths = {}
+        f = open("world.json", "r")
+        self.blocks_for_file = json.loads(f.read())
+        f = open("worldSimplet.json", "r")
+        self.blocks_for_file_simplet = json.loads(f.read())
+
         self.Isjump = False
         self.objectif = 10
         self.LastTerrainPlace = [[-20,-20], [20,20]]
@@ -52,6 +58,7 @@ class Main(ShowBase):
         self.user_gravity = User_Gravity(self)
         self.break_block = Action_Break_Blocks(self)
         self.block_placer = Action_Place_Blocks(self)
+        self.world_saving = World_Saving(self)
         # Créez un objet LineSegs pour dessiner la croix
         # Créez une nouvelle région d'affichage (display region)
         dr = self.win.makeDisplayRegion()
@@ -70,7 +77,7 @@ class Main(ShowBase):
         myRender2d.setDepthWrite(False)
         myCamera2d.reparentTo(myRender2d)
         dr.setCamera(myCamera2d)
-
+        self.accept("escape", self.world_saving.save_to_file)
         # Créez un objet LineSegs pour dessiner la croix
         croix = LineSegs()
         croix.setColor(1, 0, 0, 1)  # Couleur de la croix (rouge dans cet exemple)
