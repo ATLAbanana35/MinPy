@@ -12,9 +12,12 @@ from lib.blocks.gen_block import GenBlocks
 from lib.action.is_user_death import IsUserDead
 from lib.blocks.place_block import Action_Place_Blocks
 from lib.files.save_world import World_Saving
+from lib.entitys.zombie_spawn import ZombieGen
+
 from threading import Lock
 import json
 
+print("MinPy Démmarre, Bon jeu!")
 def setTimeout(fn, ms, *args, **kwargs): 
     t = Timer(ms / 1000., fn, args=args, kwargs=kwargs)
     t.start()
@@ -22,10 +25,13 @@ def setTimeout(fn, ms, *args, **kwargs):
 
 class Main(ShowBase):
     def __init__(self):
+        print("Création du core 3d")
         self.world = BulletWorld()
         self.world.setGravity(Vec3(0, 0, -100))  # Gravité
         self.selectedBlockType = 'grass'
         ShowBase.__init__(self)
+        self.zombies = {}
+        self.zombiesUUID = []
         self.disableMouse()
         self.worldVars = setup_world(self)
         self.AnPlayerPosX = 5
@@ -33,25 +39,25 @@ class Main(ShowBase):
         self.ancien_user_gen = 20
         self.AnPlayerPosY = 5
         self.AnPlayerPosZ = 5
+        self.userLife = 18
+        print("Lecture du monde")
         f = open("world.json", "r")
-        self.blocks_for_file = json.loads(f.read())
-        f = open("worldSimplet.json", "r")
         self.blocks_for_file_simplet = json.loads(f.read())
-
+        f.close()
         self.Isjump = False
         self.objectif = 10
-        self.LastTerrainPlace = [[-20,-20], [20,20]]
         self.LastPosX = 0
         self.LastPosY = 0
-        self.TerrainUserX=-20
-        self.TerrainUserY=-20
+        self.TerrainUserX=-5
+        self.TerrainUserY=-5
+        print("Chargement du terrain")
         self.blocksgenerated = GenBlocks(self)
-
+        print("Création des entités et autres ressources")
         self.deadControl = IsUserDead(self)
 
         # Initialisation de la fenêtre et de la caméra
         self.user_gen = UserGenerator(self)
-
+        self.zombieGenerator = ZombieGen(self)
         # Génération du monde et des élément
         # Gestion des mouvements et des commandes
         self.user_move = UserMovement(self)
@@ -107,9 +113,11 @@ class Main(ShowBase):
         # Placez la croix au milieu de l'écran
         croix_node2.setPos(LPoint3(0, 0, 0))
         # Ajouter une tâche pour mettre à jour les mouvements
+        print("Inisialisation de la boucle principale")
         def LaterExecution():
             taskMgr.add(self.general_update_loop, "update_movement")
             taskMgr.add(self.gravity_upate_loop, "update_gravity")
+            self.zombieGenerator.spawn()
         setTimeout(LaterExecution, 1000)
 
 

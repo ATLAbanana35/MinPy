@@ -103,7 +103,6 @@ class UserMovement(ShowBase):
             # Déplacement en vue FPS
             if self.movingForward:
                 tr=self.showbase.userShape.getTransform().getPos()
-                print(tr)
                 self.showbase.userShape.setTransform(TransformState.makePos(tr + self.showbase.cameraNode.getNetTransform().getMat().getRow3(1) * moveSpeed))
             if self.movingBackward:
                 tr=self.showbase.userShape.getTransform().getPos()

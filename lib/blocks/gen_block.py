@@ -15,48 +15,65 @@ class GenBlocks(ShowBase):
         persistence = 0.5  # Persistance
         lacunarity = 2.0  # Lacunarity
         height_multiplier = 5 # Ajustez la hauteur souhaitée
-        plusY = 12
-        plusX = 12
-        print(direction)
+        plusY = 5
+        plusX = 5
         if direction == "x+":
-            self.showbase.TerrainUserX = self.showbase.TerrainUserX+10
-            start_x = self.showbase.TerrainUserX + 41
+            self.showbase.TerrainUserX = self.showbase.TerrainUserX+5
+            start_x = self.showbase.TerrainUserX + 21
             start_y = self.showbase.TerrainUserY
-            plusY = 40
+            plusY = 20
         elif direction == "x-":
-            self.showbase.TerrainUserX = self.showbase.TerrainUserX-10
+            self.showbase.TerrainUserX = self.showbase.TerrainUserX-5
 
             start_x = self.showbase.TerrainUserX - 1
             start_y = self.showbase.TerrainUserY
-            plusY = 40
+            plusY = 20
         elif direction == "y+":
-            self.showbase.TerrainUserY = self.showbase.TerrainUserY+10
+            self.showbase.TerrainUserY = self.showbase.TerrainUserY+5
 
             start_x = self.showbase.TerrainUserX
-            start_y = self.showbase.TerrainUserY + 41
-            plusX = 40
+            start_y = self.showbase.TerrainUserY + 21
+            plusX = 20
         elif direction == "y-":
-            self.showbase.TerrainUserY = self.showbase.TerrainUserY-10
+            self.showbase.TerrainUserY = self.showbase.TerrainUserY-5
 
             start_x = self.showbase.TerrainUserX
             start_y = self.showbase.TerrainUserY - 1
-            plusX = 40
+            plusX = 20
         else:
             return
-        for z in range(0, 20):
-            for y in range(start_y, start_y + plusY, 2):
-                for x in range(start_x, start_x + plusX, 2):
-                    # Calculez la hauteur en utilisant le bruit perlin
-                    noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
-                    # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
-                    normalized_height = (noise_value + 1) * height_multiplier
-                    self.createNewBlock(
-                        x,
-                        y,
-                        -int(normalized_height) * 2,  # Utilisez la hauteur calculée
-                        'grass' if z == 0 else 'dirt'
-                    )
-
+        for y in range(start_y, start_y + plusY, 2):
+            for x in range(start_x, start_x + plusX, 2):
+                try:
+                    self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": -20}}"]
+                    for z in range(-20, 40):
+                        try: 
+                            self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]
+                            self.createNewBlock(
+                                x,
+                                y,
+                                z,  # Utilisez la hauteur calculée
+                                "grass"
+                            )
+                            if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
+                                exit()
+                        except KeyError:
+                            owoiwedwiodwopdjodoqwqwqw2=False
+                            if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
+                                exit()
+                except KeyError:
+                    owoiwedwiodwopdjodoqwqwqw=False
+                    for z in range(0, 10):
+                        # Calculez la hauteur en utilisant le bruit perlin
+                        noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
+                        # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
+                        normalized_height = (noise_value + 1) * height_multiplier
+                        self.createNewBlock(
+                            x,
+                            y,
+                            -int(normalized_height) * 2,  # Utilisez la hauteur calculée
+                            'grass' if z == 0 else 'dirt'
+                        )
         for y in range(start_y, start_y + plusY, 2):
             for x in range(start_x, start_x + plusX, 2):
                 self.createNewBlock(
@@ -65,28 +82,28 @@ class GenBlocks(ShowBase):
                     -20,  # Utilisez la hauteur calculée
                     "bedrock"
                 )
+
                     
     def removeLineOfBlocks(self, direction):
         # Paramètres pour le bruit perlin
         plusY = 10
         plusX = 10
-        print(direction)
         if direction == "x-":
-            start_x = self.showbase.TerrainUserX + 40
+            start_x = self.showbase.TerrainUserX + 20
             start_y = self.showbase.TerrainUserY
-            plusY = 40
+            plusY = 20
         elif direction == "x+":
             start_x = self.showbase.TerrainUserX
             start_y = self.showbase.TerrainUserY
-            plusY = 40
+            plusY = 20
         elif direction == "y-":
             start_x = self.showbase.TerrainUserX
-            start_y = self.showbase.TerrainUserY + 40
-            plusX = 40
+            start_y = self.showbase.TerrainUserY + 20
+            plusX = 20
         elif direction == "y+":
             start_x = self.showbase.TerrainUserX
             start_y = self.showbase.TerrainUserY
-            plusX = 40
+            plusX = 20
         else:
             return
         for z in range(-20, 20):
@@ -113,36 +130,40 @@ class GenBlocks(ShowBase):
         persistence = 0.5  # Persistance
         lacunarity = 2.0  # Lacunarity
         height_multiplier = 5  # Ajustez la hauteur souhaitée
+        index = 0
         for y in range(0, 20):
             for x in range(0, 20):
                 try:
-                    self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": -20}})]
-                    print("AERLY GENERADE")
-                    for z in range(-20, 20):
-                        try:
-                            self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": z}})]
+                    self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": -20}}"]
+                    for z in range(-20, 40):
+                        try: 
+                            self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]
                             self.createNewBlock(
-                                x * 2 - 20,
-                                y * 2 - 20,
+                                x,
+                                y,
                                 z,  # Utilisez la hauteur calculée
                                 "grass"
                             )
+                            index += 1
+                            if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
+                                exit()
                         except KeyError:
-                            print("EST")
-                    print("NOT GEN")
+                            owoiwedwiodwopdjodoqwqwqw2=False
+                            if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
+                                exit()
                 except KeyError:
-                    print("NOT GEN")
-                for z in range(0, 10):
-                    # Calculez la hauteur en utilisant le bruit perlin
-                    noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
-                    # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
-                    normalized_height = (noise_value + 1) * height_multiplier
-                    self.createNewBlock(
-                        x * 2 - 20,
-                        y * 2 - 20,
-                        -int(normalized_height) * 2,  # Utilisez la hauteur calculée
-                        'grass' if z == 0 else 'dirt'
-                    )
+                    owoiwedwiodwopdjodoqwqwqw=False
+                    for z in range(0, 10):
+                        # Calculez la hauteur en utilisant le bruit perlin
+                        noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
+                        # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
+                        normalized_height = (noise_value + 1) * height_multiplier
+                        self.createNewBlock(
+                            x,
+                            y,
+                            -int(normalized_height) * 2,  # Utilisez la hauteur calculée
+                            'grass' if z == 0 else 'dirt'
+                        )
         for y in range(0, 20):
             for x in range(0, 20):
                 self.createNewBlock(
@@ -215,7 +236,6 @@ class GenBlocks(ShowBase):
         newBlockNode.setPythonTag('block_type', type)
         newBlockNode.setPythonTag('data_content', {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}) 
         newBlockNode.setPythonTag('data', {})
-        self.showbase.blocks_for_file.append({"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}})
         self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": z}})] = {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}
     def loadModels(self):
         self.showbase.grassBlock = loader.loadModel('./ressources/3d/models/blocks/grass-block.glb')

@@ -22,8 +22,8 @@ class UserGenerator(ShowBase):
         showbase.world.attachRigidBody(character_node)
         showbase.userShape = character_node
         # Définir la position initiale du personnage
-        character_np.setPos(Point3(0, 0, 5))
-        showbase.userShape.setTransform(TransformState.makePos(Point3(0, 0, 5)))
+        character_np.setPos(Point3(10, 10, 5))
+        showbase.userShape.setTransform(TransformState.makePos(Point3(10, 10, 5)))
         # Variables de gravité
         
         # Démarrer la boucle de mise à jour physique

@@ -21,19 +21,35 @@ class Raycaster:
             hitNodePath = rayHit.getIntoNodePath()
             hitObject = hitNodePath.getPythonTag('owner')
             distanceFromPlayer = hitObject.getDistance(self.showbase.cameraNode)
+            if hitObject.getPythonTag("type") == "zombie":
+                life = hitObject.getPythonTag("life")
+                id = hitObject.getPythonTag("id")
+                print("Il reste",life,"de vie à zombie")
+                if life > 0:
+                    life -= 2
+                    hitObject.setPythonTag("life", life)
+                else:
+                    hitObject.removeNode()
+                    self.showbase.world.removeRigidBody(hitNodePath.getPythonTag("rigidBody"))
+                    self.showbase.zombies[str(id)+"_isAlive"] = False
+                    del self.showbase.zombies[str(id)+"_Isjump"]
+                    del self.showbase.zombies[str(id)+"_objectif"]
+                    del self.showbase.zombies[str(id)+"_zombieShape"]
+                    del self.showbase.zombies[str(id)+"_collider"]
+                    del self.showbase.zombies[str(id)+"_zombie"]
+            else:
+                Pos = hitNodePath.getName().split("block-collision-node_")[1].split("_")
+                index = "{\"pos\": {\"x\": "+Pos[0]+", \"y\": "+Pos[1]+", \"z\": "+Pos[2]+"}}"
+                hitNodePath.clearPythonTag('owner')
+                hitObject.removeNode()
 
-            
-            hitNodePath.clearPythonTag('owner')
-            index = self.showbase.blocks_for_file.index(hitObject.getPythonTag("data_content"))
-            print(index)
-            hitObject.removeNode()
-            try:
-                self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])
-            except KeyError:
-                print("ERROR_AT_LINE_30_'self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])'_CORRIGÉE")
-            if self.showbase.blocks.get(hitNodePath.getName()) != None:
-                del self.showbase.blocks[hitNodePath.getName()]
-                del self.showbase.blocks_for_file[index]
+                try:
+                    self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])
+                except KeyError:
+                    print("ERROR_AT_LINE_30_'self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])'_CORRIGÉE")
+                if self.showbase.blocks.get(hitNodePath.getName()) != None:
+                    del self.showbase.blocks[hitNodePath.getName()]
+                    del self.showbase.blocks_for_file_simplet[index]
 class Action_Break_Blocks(ShowBase):
 
     def __init__(self, showbase):

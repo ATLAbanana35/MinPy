@@ -46,7 +46,7 @@ class Raycaster:
 
             hitBlockPos = hitObject.getPos()
             newBlockPos = hitBlockPos + normal * 2
-            self.showbase.createNewBlock(newBlockPos.x, newBlockPos.y, newBlockPos.z, self.showbase.selectedBlockType)
+            self.showbase.createNewBlock(int(newBlockPos.x), int(newBlockPos.y), int(newBlockPos.z), self.showbase.selectedBlockType)
     
 
 class Action_Place_Blocks(ShowBase):
