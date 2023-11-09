@@ -8,6 +8,6 @@ class World_Saving(ShowBase):
     def save_to_file(self):
         print("Le monde à bien été enregistré")
         f = open("world.json", "w")
-        f.write(json.dumps(self.showbase.blocks_for_file_simplet))
+        f.write(json.dumps({"blocks": self.showbase.blocks_for_file_simplet, "entitys": self.showbase.enitiys}))
         f.close()
         exit()

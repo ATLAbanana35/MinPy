@@ -6,8 +6,7 @@ import uuid
 class ZombieGen(ShowBase):
     def __init__(self, showbase):
         self.showbase = showbase
-    def spawn(self):
-        id = uuid.uuid4()
+    def spawn(self, x, y, z, id=uuid.uuid4()):
         self.showbase.zombiesUUID.append(id)
         self.showbase.zombies[str(id)+"_isAlive"] = True
         self.showbase.zombies[str(id)+"_Isjump"] = False
@@ -39,8 +38,8 @@ class ZombieGen(ShowBase):
         self.showbase.zombies[str(id)+"_zombie"].setPythonTag("life", 18)
         self.showbase.zombies[str(id)+"_zombie"].setPythonTag("id", id)
         # Définir la position initiale du personnage
-        zombie_np.setPos(Point3(5, 5, 0))
-        self.showbase.zombies[str(id)+"_zombieShape"].setTransform(TransformState.makePos(Point3(5, 5, 0)))
+        zombie_np.setPos(Point3(x, y, z))
+        self.showbase.zombies[str(id)+"_zombieShape"].setTransform(TransformState.makePos(Point3(x, y, z)))
         # Variables de gravité
         zombieSolid = CollisionBox((-2, -2, -2), (2, 2, 2))
         zombieNode = CollisionNode('Zombie_'+str(id))
@@ -99,6 +98,7 @@ class ZombieGen(ShowBase):
             rigid_body_position_2 = Vec3(rigid_body_position.x, rigid_body_position.y, rigid_body_position.z+1)
             # Mettez à jour la position du modèle du personnage
             self.showbase.zombies[str(id)+"_zombie"].setPos(rigid_body_position_2)
+            self.showbase.enitiys[str(id)+"_zombie"] = {"type": "zombie", "pos": {"x": rigid_body_position.x, "y": rigid_body_position.y, "z": rigid_body_position.z}}
             self.showbase.zombies[str(id)+"_collider"].setPos(rigid_body_position)
             return task.cont
         taskMgr.add(zombie_gravity, "update_gravity")

@@ -37,6 +37,26 @@ class Raycaster:
                     del self.showbase.zombies[str(id)+"_zombieShape"]
                     del self.showbase.zombies[str(id)+"_collider"]
                     del self.showbase.zombies[str(id)+"_zombie"]
+                    del self.showbase.zombiesUUID[self.showbase.zombiesUUID.index(id)]
+                    del self.showbase.enitiys[str(id)+"_zombie"]
+            elif hitObject.getPythonTag("type") == "pig":
+                life = hitObject.getPythonTag("life")
+                id = hitObject.getPythonTag("id")
+                print("Il reste",life,"de vie à pig")
+                if life > 0:
+                    life -= 2
+                    hitObject.setPythonTag("life", life)
+                else:
+                    hitObject.removeNode()
+                    self.showbase.world.removeRigidBody(hitNodePath.getPythonTag("rigidBody"))
+                    self.showbase.pigs[str(id)+"_isAlive"] = False
+                    del self.showbase.pigs[str(id)+"_Isjump"]
+                    del self.showbase.pigs[str(id)+"_objectif"]
+                    del self.showbase.pigs[str(id)+"_pigShape"]
+                    del self.showbase.pigs[str(id)+"_collider"]
+                    del self.showbase.pigs[str(id)+"_pig"]
+                    del self.showbase.pigsUUID[self.showbase.pigsUUID.index(id)]
+                    del self.showbase.enitiys[str(id)+"_pig"]
             else:
                 Pos = hitNodePath.getName().split("block-collision-node_")[1].split("_")
                 index = "{\"pos\": {\"x\": "+Pos[0]+", \"y\": "+Pos[1]+", \"z\": "+Pos[2]+"}}"

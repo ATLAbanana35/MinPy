@@ -13,9 +13,14 @@ from lib.action.is_user_death import IsUserDead
 from lib.blocks.place_block import Action_Place_Blocks
 from lib.files.save_world import World_Saving
 from lib.entitys.zombie_spawn import ZombieGen
+from lib.entitys.pig_spawn import pigGen
 
 from threading import Lock
 import json
+
+from panda3d.core import loadPrcFile
+
+loadPrcFile("config.prc")
 
 print("MinPy Démmarre, Bon jeu!")
 def setTimeout(fn, ms, *args, **kwargs): 
@@ -32,6 +37,8 @@ class Main(ShowBase):
         ShowBase.__init__(self)
         self.zombies = {}
         self.zombiesUUID = []
+        self.pigs = {}
+        self.pigsUUID = []
         self.disableMouse()
         self.worldVars = setup_world(self)
         self.AnPlayerPosX = 5
@@ -42,7 +49,9 @@ class Main(ShowBase):
         self.userLife = 18
         print("Lecture du monde")
         f = open("world.json", "r")
-        self.blocks_for_file_simplet = json.loads(f.read())
+        self.JSON_World = json.loads(f.read())
+        self.blocks_for_file_simplet = self.JSON_World["blocks"]
+        self.enitiys = self.JSON_World["entitys"]
         f.close()
         self.Isjump = False
         self.objectif = 10
@@ -58,6 +67,7 @@ class Main(ShowBase):
         # Initialisation de la fenêtre et de la caméra
         self.user_gen = UserGenerator(self)
         self.zombieGenerator = ZombieGen(self)
+        self.pigGenerator = pigGen(self)
         # Génération du monde et des élément
         # Gestion des mouvements et des commandes
         self.user_move = UserMovement(self)
@@ -117,7 +127,13 @@ class Main(ShowBase):
         def LaterExecution():
             taskMgr.add(self.general_update_loop, "update_movement")
             taskMgr.add(self.gravity_upate_loop, "update_gravity")
-            self.zombieGenerator.spawn()
+            if len(self.enitiys) == 0:
+                self.zombieGenerator.spawn(5, 5, 5)
+                self.pigGenerator.spawn(5, 5, 5)
+            for entityID in self.enitiys:
+                entity = self.enitiys[entityID]
+                if entity["type"] == "zombie":
+                    self.zombieGenerator.spawn(entity["pos"]["x"], entity["pos"]["y"], entity["pos"]["z"], id=entityID.split("_")[0])
         setTimeout(LaterExecution, 1000)
 
 
