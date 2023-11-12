@@ -1,0 +1,13 @@
+{
+  "Player_Inventory": {
+    "id": "player_inventory",
+    "image": "ressources/image/gui/player_inventory.png",
+    "scale": [0.7, 0.5, 0.7],
+    "Text": "Inventaire",
+    "crafts": {
+      "crafting_table": {
+        "wood": 4
+      }
+    }
+  }
+}

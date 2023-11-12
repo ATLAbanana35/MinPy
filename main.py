@@ -3,6 +3,10 @@ from threading import Timer
 from panda3d.core import Vec3, NodePath, LineSegs, LPoint3, Camera, OrthographicLens
 from panda3d.bullet import BulletWorld
 import time
+from threading import Lock
+import json
+from direct.gui.OnscreenText import OnscreenText
+from direct.gui.OnscreenImage import OnscreenImage
 from lib.blocks.break_blocks import Action_Break_Blocks
 from lib.user.user_gen import UserGenerator
 from lib.action.user_controls import UserMovement
@@ -14,9 +18,9 @@ from lib.blocks.place_block import Action_Place_Blocks
 from lib.files.save_world import World_Saving
 from lib.entitys.zombie_spawn import ZombieGen
 from lib.entitys.pig_spawn import pigGen
+from lib.user.user_inventory import UserInventory
+from lib.gui.open_gui import GUI_OPENING
 
-from threading import Lock
-import json
 
 from panda3d.core import loadPrcFile
 
@@ -45,23 +49,62 @@ class Main(ShowBase):
         self.data_lock = Lock()
         self.ancien_user_gen = 20
         self.AnPlayerPosY = 5
-        self.userInventory = []
         self.AnPlayerPosZ = 5
         self.userLife = 18
+        # Ressources extractor
+        self.mod_blocks_loaded = {}
+        self.userInventory = {}
+        self.mod_items_loaded = {}
+        print("Lecture des ressources")
+        f = open("ressources/pycraft/blocks.json", "r")
+        self.mods_blocks = json.loads(f.read())
+        for index in self.mods_blocks:
+            element = self.mods_blocks[index]
+            self.mod_blocks_loaded[element["id"]] = loader.loadModel(element["model_path"])
+        f = open("ressources/pycraft/gui.json", "r")
+        self.mods_guis = json.loads(f.read())
+        f = open("ressources/pycraft/items.json", "r")
+        self.mods_items = json.loads(f.read())
+        index_for_inventory = 0
+        for index in self.mods_items:
+            element = self.mods_items[index]
+            # self.userInventory[index_for_inventory] = [self.mods_items[index], 1]
+            index_for_inventory += 1
         print("Lecture du monde")
         f = open("world.json", "r")
         self.JSON_World = json.loads(f.read())
         self.blocks_for_file_simplet = self.JSON_World["blocks"]
         self.enitiys = self.JSON_World["entitys"]
+        self.TerrainUserX=-5
+        self.TerrainUserY=-5
+        self.LastPosX = 0
+        self.LastPosY = 0
+        if self.enitiys.get("User") == None:
+            self.enitiys["User"] = {
+    "type": "user",
+      "pos": {
+        "x": 10,
+        "y": 10,
+        "z": 5
+      },
+      "data": {
+          "inventory": self.userInventory
+      }
+      }
+        else:
+            self.userInventory = self.enitiys.get("User")["data"]["inventory"]
+            self.TerrainUserX=int(self.enitiys.get("User")["pos"]["x"])-10
+            self.TerrainUserY=int(self.enitiys.get("User")["pos"]["y"])-10
+            self.LastPosX = int(self.enitiys.get("User")["pos"]["x"])
+            self.LastPosY = int(self.enitiys.get("User")["pos"]["y"])
         f.close()
         self.Isjump = False
         self.objectif = 10
-        self.LastPosX = 0
-        self.LastPosY = 0
-        self.TerrainUserX=-5
-        self.TerrainUserY=-5
+
+
         print("Chargement du terrain")
         self.blocksgenerated = GenBlocks(self)
+        self.user_inventory = UserInventory(self)
         print("Création des entités et autres ressources")
         self.deadControl = IsUserDead(self)
 
@@ -76,54 +119,30 @@ class Main(ShowBase):
         self.break_block = Action_Break_Blocks(self)
         self.block_placer = Action_Place_Blocks(self)
         self.world_saving = World_Saving(self)
+        self.gui_instance = GUI_OPENING(self)
+        def open_player_gui():
+            self.gui_instance.open_craft_gui(self.mods_guis["Player_Inventory"])
+        self.accept("e", open_player_gui)
+
         # Créez un objet LineSegs pour dessiner la croix
         # Créez une nouvelle région d'affichage (display region)
+        self.accept("escape", self.world_saving.save_to_file)
+        # Ajouter une tâche pour mettre à jour les mouvements
         dr = self.win.makeDisplayRegion()
         dr.sort = 20
-
-        # Créez une caméra 2D et configurez-la
         myCamera2d = NodePath(Camera('myCam2d'))
         lens = OrthographicLens()
-        lens.setFilmSize(2, 2)  # Dimensions de la caméra 2D
-        lens.setNearFar(-1000, 1000)  # Plage de rendu
+        lens.setFilmSize(2, 2)
+        lens.setNearFar(-1000, 1000)
         myCamera2d.node().setLens(lens)
 
-        # Créez un nœud pour le rendu 2D
         myRender2d = NodePath('myRender2d')
         myRender2d.setDepthTest(False)
         myRender2d.setDepthWrite(False)
         myCamera2d.reparentTo(myRender2d)
         dr.setCamera(myCamera2d)
-        self.accept("escape", self.world_saving.save_to_file)
-        # Créez un objet LineSegs pour dessiner la croix
-        croix = LineSegs()
-        croix.setColor(1, 0, 0, 1)  # Couleur de la croix (rouge dans cet exemple)
-
-        # Dimensions de la croix
-        taille_croix = 0.1
-
-        # Dessinez la ligne horizontale de la croix
-        croix.moveTo(-taille_croix, 0, 0)
-        croix.drawTo(taille_croix, 0, 0)
-
-        # Créez un nœud Panda3D pour la croix
-        croix_node = NodePath(croix.create())
-        croix_node.reparentTo(myRender2d)
-
-        # Placez la croix au milieu de l'écran
-        croix_node.setPos(LPoint3(0, 0, 0))
-        croix2 = LineSegs()
-        croix2.setColor(1, 1, 0, 1)  # Couleur de la croix (rouge dans cet exemple)
-        croix2.moveTo(0, -taille_croix, 0)
-        croix2.drawTo(0, taille_croix, 0)
-        # Créez un nœud Panda3D pour la croix
-        croix_node2 = NodePath(croix2.create())
-        croix_node2.setName("croix_verticale")
-        croix_node2.reparentTo(myRender2d)
-
-        # Placez la croix au milieu de l'écran
-        croix_node2.setPos(LPoint3(0, 0, 0))
-        # Ajouter une tâche pour mettre à jour les mouvements
+        textObject = OnscreenText(text ='+', pos = (0,0), scale = 0.5)
+        imageObject = OnscreenImage(image = 'ressources/image/gui/inventory_bar.png', pos = (0,0,-0.7), scale=Vec3(1, 1, 0.1))
         print("Inisialisation de la boucle principale")
         def LaterExecution():
             taskMgr.add(self.general_update_loop, "update_movement")
@@ -141,6 +160,7 @@ class Main(ShowBase):
 
     def general_update_loop(self, task):
         # Vous pouvez gérer les mouvements ici
+        self.user_inventory.refresh()
         self.user_move.update()
         self.user_gravity.update_user_to_shape()
         self.deadControl.update_dead()

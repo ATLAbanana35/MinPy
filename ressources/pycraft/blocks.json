@@ -1,37 +1,51 @@
 {
-    "grass": {
-        "model_path": "./ressources/3d/models/blocks/grass-block.glb",
-        "id": "grassBlock",
-        "game-id": "minpy:grass",
-        "data": [],
-        "item": "grassItem"
-    },
-    "dirt": {
-        "model_path": "./ressources/3d/models/blocks/dirt-block.glb",
-        "id": "dirtBlock",
-        "game-id": "minpy:dirt",
-        "data": [],
-        "item": "dirtItem"
-    },
-    "stone": {
-        "model_path": "./ressources/3d/models/blocks/stone-block.glb",
-        "id": "stoneBlock",
-        "game-id": "minpy:stone",
-        "data": [],
-        "item": "stoneItem"
-    },
-    "sand": {
-        "model_path": "./ressources/3d/models/blocks/sand-block.glb",
-        "id": "sandBlock",
-        "game-id": "minpy:sand",
-        "data": [],
-        "item": "sandItem"
-    },
-    "bedrock": {
-        "model_path": "./ressources/3d/models/blocks/bedrock.glb",
-        "id": "bedrock",
-        "game-id": "minpy:bedrock",
-        "data": [],
-        "item": "bedrockItem"
-    }
+  "grass": {
+    "model_path": "./ressources/3d/models/blocks/grass-block.glb",
+    "id": "grassBlock",
+    "game-id": "minpy:grass",
+    "data": [],
+    "item": "grassItem"
+  },
+  "dirt": {
+    "model_path": "./ressources/3d/models/blocks/dirt-block.glb",
+    "id": "dirtBlock",
+    "game-id": "minpy:dirt",
+    "data": [],
+    "item": "dirtItem"
+  },
+  "stone": {
+    "model_path": "./ressources/3d/models/blocks/stone-block.glb",
+    "id": "stoneBlock",
+    "game-id": "minpy:stone",
+    "data": [],
+    "item": "stoneItem"
+  },
+  "sand": {
+    "model_path": "./ressources/3d/models/blocks/sand-block.glb",
+    "id": "sandBlock",
+    "game-id": "minpy:sand",
+    "data": [],
+    "item": "sandItem"
+  },
+  "wood": {
+    "model_path": "./ressources/3d/models/blocks/wood-block.glb",
+    "id": "woodBlock",
+    "game-id": "minpy:wood",
+    "data": [],
+    "item": "sandItem"
+  },
+  "oak": {
+    "model_path": "./ressources/3d/models/blocks/oak-block.glb",
+    "id": "oakBlock",
+    "game-id": "minpy:oak",
+    "data": [],
+    "item": "sandItem"
+  },
+  "bedrock": {
+    "model_path": "./ressources/3d/models/blocks/bedrock.glb",
+    "id": "bedrockBlock",
+    "game-id": "minpy:bedrock",
+    "data": [],
+    "item": "bedrockItem"
+  }
 }

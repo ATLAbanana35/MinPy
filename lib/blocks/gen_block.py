@@ -6,6 +6,7 @@ import noise
 import asyncio
 from threading import Lock
 import json
+import random
 
 class GenBlocks(ShowBase):
     def generateLineOfBlocks(self, direction):
@@ -53,7 +54,7 @@ class GenBlocks(ShowBase):
                                 x,
                                 y,
                                 z,  # Utilisez la hauteur calculée
-                                "grass"
+                                self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]["type"]
                             )
                             if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
                                 exit()
@@ -62,7 +63,9 @@ class GenBlocks(ShowBase):
                             if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
                                 exit()
                 except KeyError:
-                    owoiwedwiodwopdjodoqwqwqw=False
+                    randin = random.randint(1, 40)
+                    if randin == 14:
+                        self.createTree(x, y, 0)
                     for z in range(0, 10):
                         # Calculez la hauteur en utilisant le bruit perlin
                         noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
@@ -131,10 +134,11 @@ class GenBlocks(ShowBase):
         lacunarity = 2.0  # Lacunarity
         height_multiplier = 5  # Ajustez la hauteur souhaitée
         index = 0
-        for y in range(0, 20):
-            for x in range(0, 20):
+        for y in range(int(self.showbase.enitiys.get("User")["pos"]["y"])-10, int(self.showbase.enitiys.get("User")["pos"]["y"])+10, 2):
+            for x in range(int(self.showbase.enitiys.get("User")["pos"]["x"])-10, int(self.showbase.enitiys.get("User")["pos"]["x"])+10, 2):
                 try:
                     self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": -20}}"]
+
                     for z in range(-20, 40):
                         try: 
                             self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]
@@ -142,7 +146,7 @@ class GenBlocks(ShowBase):
                                 x,
                                 y,
                                 z,  # Utilisez la hauteur calculée
-                                "grass"
+                                self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]["type"]
                             )
                             index += 1
                             if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
@@ -152,7 +156,8 @@ class GenBlocks(ShowBase):
                             if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
                                 exit()
                 except KeyError:
-                    owoiwedwiodwopdjodoqwqwqw=False
+                    if random.randint(1, 40) == 14:
+                        self.createTree(x, y, 0)
                     for z in range(0, 10):
                         # Calculez la hauteur en utilisant le bruit perlin
                         noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
@@ -164,8 +169,8 @@ class GenBlocks(ShowBase):
                             -int(normalized_height) * 2,  # Utilisez la hauteur calculée
                             'grass' if z == 0 else 'dirt'
                         )
-        for y in range(0, 20):
-            for x in range(0, 20):
+        for y in range(int(self.showbase.enitiys.get("User")["pos"]["y"])-10, int(self.showbase.enitiys.get("User")["pos"]["y"])+10, 2):
+            for x in range(int(self.showbase.enitiys.get("User")["pos"]["x"])-10, int(self.showbase.enitiys.get("User")["pos"]["x"])+10, 2):
                 self.createNewBlock(
                     x,
                     y,
@@ -200,18 +205,7 @@ class GenBlocks(ShowBase):
     def createNewBlock(self, x, y, z, type):
         newBlockNode = render.attachNewNode('block-collision-node_'+str(x)+"_"+str(y)+"_"+str(z))
         newBlockNode.setPos(x, y, z)
-        if type == 'grass':
-            newBlockNode.lookAt(Vec3(x, y+1, z))
-            self.showbase.grassBlock.instanceTo(newBlockNode)
-        elif type == 'dirt':
-            self.showbase.dirtBlock.instanceTo(newBlockNode)
-        elif type == 'sand':
-            self.showbase.sandBlock.instanceTo(newBlockNode)
-        elif type == 'stone':
-            self.showbase.stoneBlock.instanceTo(newBlockNode)
-        elif type == 'bedrock':
-            self.showbase.bedrock.instanceTo(newBlockNode)
-
+        self.showbase.mod_blocks_loaded[type + "Block"].instanceTo(newBlockNode)
         # Créez une forme de collision Bullet pour le bloc
         shape = BulletBoxShape(LVector3(2, 2, 2))  # Ajustez la taille selon vos besoins
         rigidBodyNode = BulletRigidBodyNode('block-collision-node_'+str(x)+"_"+str(y)+"_"+str(z))
@@ -237,18 +231,90 @@ class GenBlocks(ShowBase):
         newBlockNode.setPythonTag('data_content', {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}) 
         newBlockNode.setPythonTag('data', {})
         self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": z}})] = {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}
-    def loadModels(self):
-        self.showbase.grassBlock = loader.loadModel('./ressources/3d/models/blocks/grass-block.glb')
-        self.showbase.dirtBlock = loader.loadModel('./ressources/3d/models/blocks/dirt-block.glb')
-        self.showbase.stoneBlock = loader.loadModel('./ressources/3d/models/blocks/stone-block.glb')
-        self.showbase.sandBlock = loader.loadModel('./ressources/3d/models/blocks/sand-block.glb')
-        self.showbase.bedrock = loader.loadModel('./ressources/3d/models/blocks/bedrock.glb')
 
-
+    def createTree(self,x,y,z):
+        self.createNewBlock(
+                    x,
+                    y,
+                    z,  # Utilisez la hauteur calculée
+                    "wood"
+        )
+        self.createNewBlock(
+                    x,
+                    y,
+                    z+2,  # Utilisez la hauteur calculée
+                    "wood"
+        )
+        self.createNewBlock(
+                    x,
+                    y,
+                    z+4,  # Utilisez la hauteur calculée
+                    "wood"
+        )
+        self.createNewBlock(
+                    x,
+                    y,
+                    z+6,  # Utilisez la hauteur calculée
+                    "wood"
+        )
+        self.createNewBlock(
+                    x,
+                    y,
+                    z+8,  # Utilisez la hauteur calculée
+                    "oak"
+        )
+        self.createNewBlock(
+                    x+2,
+                    y,
+                    z+6,  # Utilisez la hauteur calculée
+                    "oak"
+        )
+        self.createNewBlock(
+                    x-2,
+                    y,
+                    z+6,  # Utilisez la hauteur calculée
+                    "oak"
+        )
+        self.createNewBlock(
+                    x,
+                    y+2,
+                    z+6,  # Utilisez la hauteur calculée
+                    "oak"
+        )
+        self.createNewBlock(
+                    x,
+                    y-2,
+                    z+6,  # Utilisez la hauteur calculée
+                    "oak"
+        )
+        self.createNewBlock(
+                    x-2,
+                    y+2,
+                    z+6,  # Utilisez la hauteur calculée
+                    "oak"
+        )
+        self.createNewBlock(
+                    x+2,
+                    y-2,
+                    z+6,  # Utilisez la hauteur calculée
+                    "oak"
+        )
+        self.createNewBlock(
+                    x+2,
+                    y+2,
+                    z+6,  # Utilisez la hauteur calculée
+                    "oak"
+        )
+        self.createNewBlock(
+                    x-2,
+                    y-2,
+                    z+6,  # Utilisez la hauteur calculée
+                    "oak"
+        )
     def __init__(self, showbase):
         self.showbase = showbase
         self.showbase.blocks = {}
-        self.loadModels()
         self.setupLights()
         self.generateTerrain()
         self.showbase.createNewBlock = self.createNewBlock
+        

@@ -17,7 +17,7 @@ class pigGen(ShowBase):
         self.showbase.pigs[str(id)+"_pig"] = self.showbase.loader.loadModel("ressources/3d/models/pig/pig.glb")
         self.showbase.pigs[str(id)+"_pig"].reparentTo(self.showbase.render)
         self.showbase.pigs[str(id)+"_pig"].setScale(0.1, 0.1, 0.1)
-        self.showbase.pigs[str(id)+"_pig"].setHpr(0, 0, 0)
+        self.showbase.pigs[str(id)+"_pig"].setHpr(0, 45, 0)
 
         # Créer une forme de capsule pour le personnage
         capsule_shape = BulletBoxShape(Vec3(2, 2, 4))
@@ -88,7 +88,7 @@ class pigGen(ShowBase):
             new_Y = pigY + self.showbase.pigs[str(id)+"_current_direction"].getY() * 0.001
 
             self.showbase.pigs[str(id)+"_pig"].lookAt(self.showbase.cameraNode)
-            self.showbase.pigs[str(id)+"_pig"].setP(0)
+            self.showbase.pigs[str(id)+"_pig"].setP(90)
             self.showbase.pigs[str(id)+"_pig"].setR(0)
             self.showbase.pigs[str(id)+"_pig"].setH(self.showbase.pigs[str(id)+"_pig"].getH()+180)
             self.showbase.pigs[str(id)+"_pigShape"].setTransform(TransformState.makePos(Vec3(new_X, new_Y, pigZ)))
@@ -101,7 +101,7 @@ class pigGen(ShowBase):
             rigid_body_position_2 = Vec3(rigid_body_position.x, rigid_body_position.y, rigid_body_position.z+1)
             # Mettez à jour la position du modèle du personnage
             self.showbase.pigs[str(id)+"_pig"].setPos(rigid_body_position_2)
-            self.showbase.enitiys[str(id)+"_pig"] = {"type": "pig", "pos": {"x": rigid_body_position.x, "y": rigid_body_position.y, "z": rigid_body_position.z}}
+            self.showbase.enitiys[str(id)+"_pig"] = {"type": "pig", "pos": {"x": rigid_body_position.x, "y": rigid_body_position.y, "z": rigid_body_position.z}, "data": {}}
             self.showbase.pigs[str(id)+"_collider"].setPos(rigid_body_position)
             return task.cont
         taskMgr.add(pig_gravity, "update_gravity")

@@ -46,8 +46,23 @@ class Raycaster:
 
             hitBlockPos = hitObject.getPos()
             newBlockPos = hitBlockPos + normal * 2
-            self.showbase.createNewBlock(int(newBlockPos.x), int(newBlockPos.y), int(newBlockPos.z), self.showbase.selectedBlockType)
-    
+            ObjectType = self.showbase.selectedBlockType
+            trne = 0
+            IN = 0
+            for indexX in self.showbase.userInventory:
+                element = self.showbase.userInventory[indexX]
+                if element[0]["id"].replace("Item", "") == ObjectType:
+                    self.showbase.userInventory[indexX][1] -= 1
+                    trne = 1
+                    if self.showbase.userInventory[indexX][1] < 0:
+                        trne = 2
+                        IN = indexX
+            if trne == 2:
+                del self.showbase.userInventory[IN]
+                self.showbase.selectedBlockType = "nothing"
+            if self.showbase.selectedBlockType != "nothing":
+                self.showbase.createNewBlock(int(newBlockPos.x), int(newBlockPos.y), int(newBlockPos.z), self.showbase.selectedBlockType)    
+
 
 class Action_Place_Blocks(ShowBase):
 
@@ -68,4 +83,4 @@ class Action_Place_Blocks(ShowBase):
         self.showbase.cTrav.addCollider(rayNodePath, self.showbase.rayQueue)
 
         # Gestionnaire d'événements de souris
-        self.accept("k", raycaster.cast)
+        self.accept("y", raycaster.cast)

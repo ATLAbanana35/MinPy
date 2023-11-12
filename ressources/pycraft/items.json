@@ -1,32 +1,44 @@
 {
-    "grass": {
-        "image_path": "./ressources/3d/models/blocks/grass-block.glb",
-        "id": "grassItem",
-        "game-id": "minpy:grass",
-        "data": []
-    },
-    "dirt": {
-        "image_path": "./ressources/3d/models/blocks/dirt-block.glb",
-        "id": "dirtItem",
-        "game-id": "minpy:dirt",
-        "data": []
-    },
-    "stone": {
-        "image_path": "./ressources/3d/models/blocks/stone-block.glb",
-        "id": "stoneItem",
-        "game-id": "minpy:stone",
-        "data": []
-    },
-    "sand": {
-        "image_path": "./ressources/3d/models/blocks/sand-block.glb",
-        "id": "sandItem",
-        "game-id": "minpy:sand",
-        "data": []
-    },
-    "bedrock": {
-        "imagem_path": "./ressources/3d/models/blocks/bedrock.glb",
-        "id": "bedrockItem",
-        "game-id": "minpy:bedrock",
-        "data": []
-    }
+  "grass": {
+    "image_path": "./ressources/image/items/grass-item.png",
+    "id": "grassItem",
+    "game-id": "minpy:grass",
+    "data": []
+  },
+  "dirt": {
+    "image_path": "./ressources/image/items/dirt-item.png",
+    "id": "dirtItem",
+    "game-id": "minpy:dirt",
+    "data": []
+  },
+  "stone": {
+    "image_path": "./ressources/image/items/stone-item.png",
+    "id": "stoneItem",
+    "game-id": "minpy:stone",
+    "data": []
+  },
+  "sand": {
+    "image_path": "./ressources/image/items/sand-item.png",
+    "id": "sandItem",
+    "game-id": "minpy:sand",
+    "data": []
+  },
+  "wood": {
+    "image_path": "./ressources/image/items/planks-item.png",
+    "id": "woodItem",
+    "game-id": "minpy:wood",
+    "data": []
+  },
+  "oak": {
+    "image_path": "./ressources/image/items/oak-item.png",
+    "id": "oakItem",
+    "game-id": "minpy:oak",
+    "data": []
+  },
+  "bedrock": {
+    "image_path": "./ressources/image/items/bedrock-item.png",
+    "id": "bedrockItem",
+    "game-id": "minpy:bedrock",
+    "data": []
+  }
 }

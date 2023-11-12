@@ -15,7 +15,7 @@ class ZombieGen(ShowBase):
         self.showbase.zombies[str(id)+"_zombie"] = self.showbase.loader.loadModel("ressources/3d/models/zombie/zombie.glb")
         self.showbase.zombies[str(id)+"_zombie"].reparentTo(self.showbase.render)
         self.showbase.zombies[str(id)+"_zombie"].setScale(0.1, 0.1, 0.1)
-        self.showbase.zombies[str(id)+"_zombie"].setHpr(0, 0, 0)
+        self.showbase.zombies[str(id)+"_zombie"].setHpr(0, 45, 0)
 
         # Créer une forme de capsule pour le personnage
         capsule_shape = BulletBoxShape(Vec3(2, 2, 4))
@@ -85,7 +85,7 @@ class ZombieGen(ShowBase):
             new_X = zombieX + delta_X * 0.005  # Ajustez la vitesse de déplacement
             new_Y = zombieY + delta_Y * 0.005
             self.showbase.zombies[str(id)+"_zombie"].lookAt(self.showbase.cameraNode)
-            self.showbase.zombies[str(id)+"_zombie"].setP(0)
+            self.showbase.zombies[str(id)+"_zombie"].setP(90)
             self.showbase.zombies[str(id)+"_zombie"].setR(0)
             self.showbase.zombies[str(id)+"_zombie"].setH(self.showbase.zombies[str(id)+"_zombie"].getH()+180)
             self.showbase.zombies[str(id)+"_zombieShape"].setTransform(TransformState.makePos(Vec3(new_X, new_Y, zombieZ)))
@@ -98,7 +98,7 @@ class ZombieGen(ShowBase):
             rigid_body_position_2 = Vec3(rigid_body_position.x, rigid_body_position.y, rigid_body_position.z+1)
             # Mettez à jour la position du modèle du personnage
             self.showbase.zombies[str(id)+"_zombie"].setPos(rigid_body_position_2)
-            self.showbase.enitiys[str(id)+"_zombie"] = {"type": "zombie", "pos": {"x": rigid_body_position.x, "y": rigid_body_position.y, "z": rigid_body_position.z}}
+            self.showbase.enitiys[str(id)+"_zombie"] = {"type": "zombie", "pos": {"x": rigid_body_position.x, "y": rigid_body_position.y, "z": rigid_body_position.z}, "data": {}}
             self.showbase.zombies[str(id)+"_collider"].setPos(rigid_body_position)
             return task.cont
         taskMgr.add(zombie_gravity, "update_gravity")

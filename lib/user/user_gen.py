@@ -4,6 +4,7 @@ from direct.showbase.ShowBase import ShowBase
 class UserGenerator(ShowBase):
     def __init__(self, showbase):
         # Charger le modèle de personnage
+        pos = showbase.enitiys["User"]["pos"]
         showbase.character = showbase.loader.loadModel("ressources/3d/models/steve/source/steve.fbx")
         showbase.character.reparentTo(showbase.render)
         showbase.character.setScale(0.1, 0.1, 0.1)
@@ -22,8 +23,8 @@ class UserGenerator(ShowBase):
         showbase.world.attachRigidBody(character_node)
         showbase.userShape = character_node
         # Définir la position initiale du personnage
-        character_np.setPos(Point3(10, 10, 5))
-        showbase.userShape.setTransform(TransformState.makePos(Point3(10, 10, 5)))
+        character_np.setPos(Point3(pos["x"], pos["y"], pos["z"]))
+        showbase.userShape.setTransform(TransformState.makePos(Point3(pos["x"], pos["y"], pos["z"])))
         # Variables de gravité
         
         # Démarrer la boucle de mise à jour physique

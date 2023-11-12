@@ -13,9 +13,7 @@ class User_Gravity(ShowBase):
         userY = self.showbase.userShape.getTransform().getPos().getY()
         userZ = self.showbase.userShape.getTransform().getPos().getZ()
         userZ -= 0.1
-        if self.showbase.LastPosX-5 < userX and self.showbase.LastPosX+5 > userX:
-            if self.showbase.LastPosY-5 < userY and self.showbase.LastPosY+5 > userY:
-                # ...
+        if (self.showbase.LastPosX-5 < userX and self.showbase.LastPosX+5 > userX) and (self.showbase.LastPosY-5 < userY and self.showbase.LastPosY+5 > userY):
                 oOowoewi390tia34049=True
         else:
             userX = self.showbase.userShape.getTransform().getPos().getX()
@@ -23,7 +21,6 @@ class User_Gravity(ShowBase):
 
             deltaX = abs(userX - self.showbase.LastPosX)
             deltaY = abs(userY - self.showbase.LastPosY)
-
             if deltaX > deltaY:
                 if userX > self.showbase.LastPosX:
                     self.showbase.blocksgenerated.generateLineOfBlocks("x+")
@@ -78,3 +75,4 @@ class User_Gravity(ShowBase):
         rigid_body_position = self.showbase.userShape.getTransform().getPos()
         # Mettez à jour la position du modèle du personnage
         self.showbase.character.setPos(rigid_body_position)
+        self.showbase.enitiys["User"]["pos"] = {"x": rigid_body_position.x, "y": rigid_body_position.y, "z": rigid_body_position.z}

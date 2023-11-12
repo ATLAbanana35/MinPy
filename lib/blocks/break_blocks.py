@@ -21,6 +21,7 @@ class Raycaster:
             hitNodePath = rayHit.getIntoNodePath()
             hitObject = hitNodePath.getPythonTag('owner')
             distanceFromPlayer = hitObject.getDistance(self.showbase.cameraNode)
+            ObjectType = hitObject.getPythonTag("block_type")
             if hitObject.getPythonTag("type") == "zombie":
                 life = hitObject.getPythonTag("life")
                 id = hitObject.getPythonTag("id")
@@ -58,16 +59,27 @@ class Raycaster:
                     del self.showbase.pigsUUID[self.showbase.pigsUUID.index(id)]
                     del self.showbase.enitiys[str(id)+"_pig"]
             else:
-                Pos = hitNodePath.getName().split("block-collision-node_")[1].split("_")
-                index = "{\"pos\": {\"x\": "+Pos[0]+", \"y\": "+Pos[1]+", \"z\": "+Pos[2]+"}}"
-                hitNodePath.clearPythonTag('owner')
-                hitObject.removeNode()
-
+                if ObjectType != "bedrock":
+                    Pos = hitNodePath.getName().split("block-collision-node_")[1].split("_")
+                    index = "{\"pos\": {\"x\": "+Pos[0]+", \"y\": "+Pos[1]+", \"z\": "+Pos[2]+"}}"
+                    hitNodePath.clearPythonTag('owner')
+                    hitObject.removeNode()
+                else:
+                    print("Vous ne pouvez pas casser la bedrock!")
                 try:
-                    self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])
+                    if ObjectType != "bedrock":
+                        self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])
                 except KeyError:
                     print("ERROR_AT_LINE_30_'self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])'_CORRIGÉE")
-                if self.showbase.blocks.get(hitNodePath.getName()) != None:
+                if self.showbase.blocks.get(hitNodePath.getName()) != None and ObjectType != "bedrock":
+                    trne = 0
+                    for indexX in self.showbase.userInventory:
+                        element = self.showbase.userInventory[indexX]
+                        if element[0]["id"].replace("Item", "") == ObjectType:
+                            self.showbase.userInventory[indexX][1] += 1
+                            trne = 1
+                    if trne == 0:
+                        self.showbase.userInventory[len(self.showbase.userInventory)] = [self.showbase.mods_items[ObjectType], 1]
                     del self.showbase.blocks[hitNodePath.getName()]
                     del self.showbase.blocks_for_file_simplet[index]
 class Action_Break_Blocks(ShowBase):
@@ -78,4 +90,4 @@ class Action_Break_Blocks(ShowBase):
         raycaster = Raycaster(self.showbase.world, self.showbase.cameraNode, self.showbase)
 
         # Gestionnaire d'événements de souris
-        self.accept("mouse1", raycaster.cast)
+        self.accept("x", raycaster.cast)
