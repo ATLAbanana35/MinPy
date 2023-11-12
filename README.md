@@ -58,4 +58,5 @@ SOFTWARE.
 
 ## Credits : 
 "Minecraft - Zombie" (https://skfb.ly/6RnEO) by Vincent Yanez is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
-
+"Minecraft - Pig" (https://skfb.ly/6SRyX) by Vincent Yanez is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
+A lot of code by : https://github.com/shaunwa/cbt-panda3d-minecraft
