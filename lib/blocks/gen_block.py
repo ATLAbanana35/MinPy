@@ -244,7 +244,6 @@ class GenBlocks(ShowBase):
         self.showbase.sandBlock = loader.loadModel('./ressources/3d/models/blocks/sand-block.glb')
         self.showbase.bedrock = loader.loadModel('./ressources/3d/models/blocks/bedrock.glb')
 
-        # ...
 
     def __init__(self, showbase):
         self.showbase = showbase

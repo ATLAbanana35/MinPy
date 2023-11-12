@@ -45,6 +45,7 @@ class Main(ShowBase):
         self.data_lock = Lock()
         self.ancien_user_gen = 20
         self.AnPlayerPosY = 5
+        self.userInventory = []
         self.AnPlayerPosZ = 5
         self.userLife = 18
         print("Lecture du monde")

@@ -1,0 +1,32 @@
+{
+    "grass": {
+        "image_path": "./ressources/3d/models/blocks/grass-block.glb",
+        "id": "grassItem",
+        "game-id": "minpy:grass",
+        "data": []
+    },
+    "dirt": {
+        "image_path": "./ressources/3d/models/blocks/dirt-block.glb",
+        "id": "dirtItem",
+        "game-id": "minpy:dirt",
+        "data": []
+    },
+    "stone": {
+        "image_path": "./ressources/3d/models/blocks/stone-block.glb",
+        "id": "stoneItem",
+        "game-id": "minpy:stone",
+        "data": []
+    },
+    "sand": {
+        "image_path": "./ressources/3d/models/blocks/sand-block.glb",
+        "id": "sandItem",
+        "game-id": "minpy:sand",
+        "data": []
+    },
+    "bedrock": {
+        "imagem_path": "./ressources/3d/models/blocks/bedrock.glb",
+        "id": "bedrockItem",
+        "game-id": "minpy:bedrock",
+        "data": []
+    }
+}
