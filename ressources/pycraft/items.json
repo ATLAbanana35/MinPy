@@ -35,6 +35,12 @@
     "game-id": "minpy:oak",
     "data": []
   },
+  "crafting-table": {
+    "image_path": "./ressources/image/items/crafting-table-item.png",
+    "id": "crafting-table-Item",
+    "game-id": "minpy:crafting-table",
+    "data": []
+  },
   "bedrock": {
     "image_path": "./ressources/image/items/bedrock-item.png",
     "id": "bedrockItem",

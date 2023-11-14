@@ -2,10 +2,10 @@
   "Player_Inventory": {
     "id": "player_inventory",
     "image": "ressources/image/gui/player_inventory.png",
-    "scale": [0.7, 0.5, 0.7],
+    "scale": [1, 0.5, 1],
     "Text": "Inventaire",
     "crafts": {
-      "crafting_table": {
+      "crafting-table": {
         "wood": 4
       }
     }

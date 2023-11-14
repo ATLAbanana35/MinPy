@@ -41,6 +41,13 @@
     "data": [],
     "item": "sandItem"
   },
+  "crafting-table": {
+    "model_path": "./ressources/3d/models/blocks/crafting-table-block.glb",
+    "id": "crafting-table-Block",
+    "game-id": "minpy:crafting-table",
+    "data": [],
+    "item": "crafting-tableItem"
+  },
   "bedrock": {
     "model_path": "./ressources/3d/models/blocks/bedrock.glb",
     "id": "bedrockBlock",
