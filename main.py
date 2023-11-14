@@ -147,7 +147,9 @@ class Main(ShowBase):
         def LaterExecution():
             taskMgr.add(self.general_update_loop, "update_movement")
             taskMgr.add(self.gravity_upate_loop, "update_gravity")
-            if len(self.enitiys) == 0:
+            # self.user_move.startMouseRotation()
+            # self.user_move.startMousePan()
+            if len(self.enitiys) == 1:
                 self.zombieGenerator.spawn(5, 5, 5)
                 self.pigGenerator.spawn(5, 5, 5)
             for entityID in self.enitiys:

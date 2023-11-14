@@ -1,5 +1,8 @@
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import Vec4, WindowProperties, Point3, TransformState
+from direct.showbase.DirectObject import DirectObject
+from panda3d.core import Vec2
+
 class UserMovement(ShowBase):
     def __init__(self, showbase):
         self.showbase = showbase
@@ -12,6 +15,9 @@ class UserMovement(ShowBase):
 
         showbase.cameraNode = showbase.character.attachNewNode("camera node")
         showbase.cameraNode.setPos(0, 10,0)
+        # Position initiale de la souris
+        self.lastMouseX = 0
+        self.lastMouseY = 0
 
         base.camera.reparentTo(showbase.cameraNode)
 
@@ -25,15 +31,6 @@ class UserMovement(ShowBase):
         self.accept("d", self.strafeRight)
         self.accept("d-up", self.stopRight)
 
-        # Ajouter des commandes pour tourner la caméra avec les flèches
-        self.accept("arrow_left", self.rotateLeft)
-        self.accept("arrow_left-up", self.stopRotateLeft)
-        self.accept("arrow_right", self.rotateRight)
-        self.accept("arrow_right-up", self.stopRotateRight)
-        self.accept("arrow_up", self.rotateUp)
-        self.accept("arrow_up-up", self.stopRotateUp)
-        self.accept("arrow_down", self.rotateDown)
-        self.accept("arrow_down-up", self.stopRotateDown)
         self.accept("space", self.jump)
 
         # Gestion des déplacements et des rotations
@@ -45,8 +42,38 @@ class UserMovement(ShowBase):
         self.rotatingRight = False
         self.rotatingUp = False
         self.rotatingDown = False
+        # Démarrer la tâche de mise à jour de la souris
+        taskMgr.add(self.mouseUpdateTask, "mouseUpdateTask")
 
-        # Tâche de mise à jour du jeu
+    def startMouseRotation(self):
+        self.mouseRotation = True
+        taskMgr.add(self.mouseRotationTask, "mouseRotationTask")
+
+
+    def startMousePan(self):
+        self.mousePan = True
+        taskMgr.add(self.mousePanTask, "mousePanTask")
+
+
+    def mouseUpdateTask(self, task):
+        try:
+            # Récupérer les mouvements de la souris
+            deltaX = base.mouseWatcherNode.getMouseX()
+            deltaY = base.mouseWatcherNode.getMouseY()
+
+            # Ajuster la rotation en fonction des mouvements de la souris
+            rotateSpeed = 0.5
+            self.showbase.character.setH(-deltaX*200)
+            self.showbase.cameraNode.setP(deltaY*200)
+
+            # Limiter la rotation de la caméra sur l'axe vertical
+            # Mettre à jour les positions de la souris
+            self.lastMouseX = base.mouseWatcherNode.getMouseX()
+            self.lastMouseY = base.mouseWatcherNode.getMouseY()
+
+        except AssertionError:
+            oxyz = False
+        return task.cont
     def jump(self):
         self.showbase.objectif = self.showbase.userShape.getTransform().getPos().getZ()+10
         self.showbase.Isjump = True  # Ajustez la valeur de la vitesse du saut selon vos besoin
@@ -74,29 +101,6 @@ class UserMovement(ShowBase):
     def stopRight(self):
         self.strafingRight = False
 
-    def rotateLeft(self):
-        self.rotatingLeft = True
-
-    def stopRotateLeft(self):
-        self.rotatingLeft = False
-
-    def rotateRight(self):
-        self.rotatingRight = True
-
-    def stopRotateRight(self):
-        self.rotatingRight = False
-
-    def rotateUp(self):
-        self.rotatingUp = True
-
-    def stopRotateUp(self):
-        self.rotatingUp = False
-
-    def rotateDown(self):
-        self.rotatingDown = True
-
-    def stopRotateDown(self):
-        self.rotatingDown = False
     def update(self):
             # Vitesse de déplacement
             moveSpeed = 1

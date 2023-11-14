@@ -61,8 +61,10 @@ class Raycaster:
                 del self.showbase.userInventory[IN]
                 self.showbase.selectedBlockType = "nothing"
             if self.showbase.selectedBlockType != "nothing":
-                self.showbase.createNewBlock(int(newBlockPos.x), int(newBlockPos.y), int(newBlockPos.z), self.showbase.selectedBlockType)    
-
+                self.showbase.createNewBlock(int(newBlockPos.x), int(newBlockPos.y), int(newBlockPos.z),
+self.showbase.selectedBlockType)    
+            else:
+                print("Break");
 
 class Action_Place_Blocks(ShowBase):
 

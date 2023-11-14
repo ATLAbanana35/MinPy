@@ -20,8 +20,7 @@ class Raycaster:
 
             hitNodePath = rayHit.getIntoNodePath()
             hitObject = hitNodePath.getPythonTag('owner')
-            distanceFromPlayer = hitObject.getDistance(self.showbase.cameraNode)
-            ObjectType = hitObject.getPythonTag("block_type")
+            # distanceFromPlayer = hitObject.getDistance(self.showbase.cameraNode)
             if hitObject.getPythonTag("type") == "zombie":
                 life = hitObject.getPythonTag("life")
                 id = hitObject.getPythonTag("id")
@@ -59,6 +58,7 @@ class Raycaster:
                     del self.showbase.pigsUUID[self.showbase.pigsUUID.index(id)]
                     del self.showbase.enitiys[str(id)+"_pig"]
             else:
+                ObjectType = hitObject.getPythonTag("block_type")
                 if ObjectType != "bedrock":
                     Pos = hitNodePath.getName().split("block-collision-node_")[1].split("_")
                     index = "{\"pos\": {\"x\": "+Pos[0]+", \"y\": "+Pos[1]+", \"z\": "+Pos[2]+"}}"
@@ -90,4 +90,4 @@ class Action_Break_Blocks(ShowBase):
         raycaster = Raycaster(self.showbase.world, self.showbase.cameraNode, self.showbase)
 
         # Gestionnaire d'événements de souris
-        self.accept("x", raycaster.cast)
+        self.accept("mouse1", raycaster.cast)

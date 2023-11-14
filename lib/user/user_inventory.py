@@ -43,80 +43,80 @@ class UserInventory(ShowBase):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (-0.87,-1), scale = 0.3)
         self.AText = textObject
-
-        if not "0" in self.showbase.userInventory:
+        print(self.showbase.userInventory);
+        if not 0 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["0"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[0][0]["id"].replace("Item", "")
     def _2(self):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (-0.65,-1), scale = 0.3)
         self.AText = textObject
 
-        if not "1" in self.showbase.userInventory:
+        if not 1 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["1"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[1][0]["id"].replace("Item", "")
     def _3(self):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (-0.43,-1), scale = 0.3)
         self.AText = textObject
 
-        if not "2" in self.showbase.userInventory:
+        if not 2 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["2"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[2][0]["id"].replace("Item", "")
     def _4(self):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (-0.21,-1), scale = 0.3)
         self.AText = textObject
 
-        if not "3" in self.showbase.userInventory:
+        if not 3 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["3"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[3][0]["id"].replace("Item", "")
     def _5(self):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (-0.01,-1), scale = 0.3)
         self.AText = textObject
 
-        if not "4" in self.showbase.userInventory:
+        if not 4 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["4"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[4][0]["id"].replace("Item", "")
     def _6(self):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (0.23,-1), scale = 0.3)
         self.AText = textObject
 
-        if not "5" in self.showbase.userInventory:
+        if not 5 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["5"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[5][0]["id"].replace("Item", "")
     def _7(self):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (0.45,-1), scale = 0.3)
         self.AText = textObject
 
-        if not "6" in self.showbase.userInventory:
+        if not 6 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["6"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[6][0]["id"].replace("Item", "")
     def _8(self):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (0.67,-1), scale = 0.3)
         self.AText = textObject
 
-        if not "7" in self.showbase.userInventory:
+        if not 7 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["7"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[7][0]["id"].replace("Item", "")
     def _9(self):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (0.89,-1), scale = 0.3)
         self.AText = textObject
 
-        if not "8" in self.showbase.userInventory:
+        if not 8 in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return
-        self.showbase.selectedBlockType = self.showbase.userInventory["8"][0]["id"].replace("Item", "")
+        self.showbase.selectedBlockType = self.showbase.userInventory[8][0]["id"].replace("Item", "")
