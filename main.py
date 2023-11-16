@@ -22,9 +22,6 @@ from lib.user.user_inventory import UserInventory
 from lib.gui.open_gui import GUI_OPENING
 
 
-from panda3d.core import loadPrcFile
-
-loadPrcFile("config.prc")
 
 print("MinPy Démmarre, Bon jeu!")
 def setTimeout(fn, ms, *args, **kwargs): 
@@ -93,10 +90,10 @@ class Main(ShowBase):
       }
       }
         else:
+            self.userInventory = self.enitiys.get("User")["data"]["inventory"]
             if int(self.enitiys.get("User")["pos"]["x"]) > -20 and int(self.enitiys.get("User")["pos"]["y"]) > -20 and int(self.enitiys.get("User")["pos"]["x"]) < 20 and int(self.enitiys.get("User")["pos"]["y"]) < 20:
                 print("PLAYER DON'T CHANGE POSITION")
             else:
-                self.userInventory = self.enitiys.get("User")["data"]["inventory"]
                 self.TerrainUserX=int(self.enitiys.get("User")["pos"]["x"])-10
                 self.TerrainUserY=int(self.enitiys.get("User")["pos"]["y"])-10
                 self.LastPosX = int(self.enitiys.get("User")["pos"]["x"])

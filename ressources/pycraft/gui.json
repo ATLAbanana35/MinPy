@@ -9,5 +9,16 @@
         "wood": 4
       }
     }
+  },
+  "Craft_Inventory": {
+    "id": "craft_inventory",
+    "image": "ressources/image/gui/player_inventory.png",
+    "scale": [1, 0.5, 1],
+    "Text": "Table de craft",
+    "crafts": {
+      "crafting-table": {
+        "wood": 4
+      }
+    }
   }
 }

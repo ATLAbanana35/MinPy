@@ -14,7 +14,7 @@ class Raycaster:
         self.lastMouseX = md.getX()
         self.lastMouseY = md.getY()
 
-        if self.showbase.rayQueue.getNumEntries() > 0:
+        if self.showbase.rayQueue.getNumEntries() > 0 and self.showbase.isGUIopen == False:
             self.showbase.rayQueue.sortEntries()
             rayHit = self.showbase.rayQueue.getEntry(0)
 

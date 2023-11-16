@@ -56,12 +56,8 @@ class GenBlocks(ShowBase):
                                 z,  # Utilisez la hauteur calculée
                                 self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]["type"]
                             )
-                            if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
-                                exit()
                         except KeyError:
                             owoiwedwiodwopdjodoqwqwqw2=False
-                            if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
-                                exit()
                 except KeyError:
                     randin = random.randint(1, 40)
                     if randin == 14:
@@ -152,12 +148,10 @@ class GenBlocks(ShowBase):
             posX_1 = -20
             posX_2 = +20
 
-        print(posX_1, posX_2, posY_1, posY_2)
         for y in range(posY_1, posY_2, 2):
             for x in range(posX_1, posX_2, 2):
                 try:
                     self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": -20}}"]
-                    print("PLZ")
                     for z in range(-20, 40):
                         try:
                             self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]
@@ -168,12 +162,8 @@ class GenBlocks(ShowBase):
                                 self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]["type"]
                             )
                             index += 1
-                            if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
-                                exit()
                         except KeyError:
                             owoiwedwiodwopdjodoqwqwqw2=False
-                            if "{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}" == "{\"pos\": {\"x\": -2, \"y\": 4, \"z\": -2}}":
-                                exit()
                 except KeyError:
                     if random.randint(1, 40) == 14:
                         self.createTree(x, y, 0)

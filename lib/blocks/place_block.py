@@ -36,14 +36,16 @@ class Raycaster:
         self.lastMouseX = md.getX()
         self.lastMouseY = md.getY()
 
-        if self.showbase.rayQueue.getNumEntries() > 0:
+        if self.showbase.rayQueue.getNumEntries() > 0 and self.showbase.isGUIopen == False:
             self.showbase.rayQueue.sortEntries()
             rayHit = self.showbase.rayQueue.getEntry(0)
             hitNodePath = rayHit.getIntoNodePath()
             normal = rayHit.getSurfaceNormal(hitNodePath)
             hitObject = hitNodePath.getPythonTag('owner')
             distanceFromPlayer = hitObject.getDistance(self.camera)
-
+            if hitObject.getPythonTag("type") == "crafting-table":
+                self.showbase.gui_instance.open_craft_gui(self.showbase.mods_guis["Craft_Inventory"])
+                return 0
             hitBlockPos = hitObject.getPos()
             newBlockPos = hitBlockPos + normal * 2
             ObjectType = self.showbase.selectedBlockType
