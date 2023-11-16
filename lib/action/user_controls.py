@@ -30,6 +30,7 @@ class UserMovement(ShowBase):
         self.accept("a-up", self.stopLeft)
         self.accept("d", self.strafeRight)
         self.accept("d-up", self.stopRight)
+        self.accept("escape", self.escape)
 
         self.accept("space", self.jump)
 
@@ -57,19 +58,20 @@ class UserMovement(ShowBase):
 
     def mouseUpdateTask(self, task):
         try:
-            # Récupérer les mouvements de la souris
-            deltaX = base.mouseWatcherNode.getMouseX()
-            deltaY = base.mouseWatcherNode.getMouseY()
+            if self.showbase.isGUIopen == False:
+                # Récupérer les mouvements de la souris
+                deltaX = base.mouseWatcherNode.getMouseX()
+                deltaY = base.mouseWatcherNode.getMouseY()
 
-            # Ajuster la rotation en fonction des mouvements de la souris
-            rotateSpeed = 0.5
-            self.showbase.character.setH(-deltaX*200)
-            self.showbase.cameraNode.setP(deltaY*200)
+                # Ajuster la rotation en fonction des mouvements de la souris
+                rotateSpeed = 0.5
+                self.showbase.character.setH(-deltaX*200)
+                self.showbase.cameraNode.setP(deltaY*200)
 
-            # Limiter la rotation de la caméra sur l'axe vertical
-            # Mettre à jour les positions de la souris
-            self.lastMouseX = base.mouseWatcherNode.getMouseX()
-            self.lastMouseY = base.mouseWatcherNode.getMouseY()
+                # Limiter la rotation de la caméra sur l'axe vertical
+                # Mettre à jour les positions de la souris
+                self.lastMouseX = base.mouseWatcherNode.getMouseX()
+                self.lastMouseY = base.mouseWatcherNode.getMouseY()
 
         except AssertionError:
             oxyz = False
@@ -88,7 +90,8 @@ class UserMovement(ShowBase):
 
     def stopBackward(self):
         self.movingBackward = False
-
+    def escape(self):
+        self.showbase.gui_instance.closeAllMenus()
     def strafeLeft(self):
         self.strafingLeft = True
 

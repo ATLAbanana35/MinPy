@@ -37,7 +37,7 @@
   },
   "crafting-table": {
     "image_path": "./ressources/image/items/crafting-table-item.png",
-    "id": "crafting-table-Item",
+    "id": "crafting-tableItem",
     "game-id": "minpy:crafting-table",
     "data": []
   },

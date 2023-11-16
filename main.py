@@ -49,6 +49,7 @@ class Main(ShowBase):
         self.data_lock = Lock()
         self.ancien_user_gen = 20
         self.AnPlayerPosY = 5
+        self.isGUIopen = False
         self.AnPlayerPosZ = 5
         self.userLife = 18
         # Ressources extractor
@@ -92,11 +93,14 @@ class Main(ShowBase):
       }
       }
         else:
-            self.userInventory = self.enitiys.get("User")["data"]["inventory"]
-            self.TerrainUserX=int(self.enitiys.get("User")["pos"]["x"])-10
-            self.TerrainUserY=int(self.enitiys.get("User")["pos"]["y"])-10
-            self.LastPosX = int(self.enitiys.get("User")["pos"]["x"])
-            self.LastPosY = int(self.enitiys.get("User")["pos"]["y"])
+            if int(self.enitiys.get("User")["pos"]["x"]) > -20 and int(self.enitiys.get("User")["pos"]["y"]) > -20 and int(self.enitiys.get("User")["pos"]["x"]) < 20 and int(self.enitiys.get("User")["pos"]["y"]) < 20:
+                print("PLAYER DON'T CHANGE POSITION")
+            else:
+                self.userInventory = self.enitiys.get("User")["data"]["inventory"]
+                self.TerrainUserX=int(self.enitiys.get("User")["pos"]["x"])-10
+                self.TerrainUserY=int(self.enitiys.get("User")["pos"]["y"])-10
+                self.LastPosX = int(self.enitiys.get("User")["pos"]["x"])
+                self.LastPosY = int(self.enitiys.get("User")["pos"]["y"])
         f.close()
         self.Isjump = False
         self.objectif = 10
@@ -126,7 +130,7 @@ class Main(ShowBase):
 
         # Créez un objet LineSegs pour dessiner la croix
         # Créez une nouvelle région d'affichage (display region)
-        self.accept("escape", self.world_saving.save_to_file)
+        self.accept("0", self.world_saving.save_to_file)
         # Ajouter une tâche pour mettre à jour les mouvements
         dr = self.win.makeDisplayRegion()
         dr.sort = 20

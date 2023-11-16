@@ -21,6 +21,9 @@ class Raycaster:
             hitNodePath = rayHit.getIntoNodePath()
             hitObject = hitNodePath.getPythonTag('owner')
             # distanceFromPlayer = hitObject.getDistance(self.showbase.cameraNode)
+            if hitObject == None:
+                return
+            
             if hitObject.getPythonTag("type") == "zombie":
                 life = hitObject.getPythonTag("life")
                 id = hitObject.getPythonTag("id")

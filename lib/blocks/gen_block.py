@@ -127,6 +127,13 @@ class GenBlocks(ShowBase):
                             if child.getName() == block_name:
                                 child.removeNode()
     def generateTerrain(self):
+        def round_to_even(number):
+            rounded_number = round(number)
+            if rounded_number % 2 != 0:
+                # Si le nombre arrondi est impair, ajoutez 1 pour le rendre pair
+                rounded_number += 1
+            return rounded_number
+
         # Paramètres pour le bruit perlin
         scale = 4  # Échelle du bruit (ajustez selon vos besoins)
         octaves = 6  # Nombre d'octaves
@@ -134,13 +141,25 @@ class GenBlocks(ShowBase):
         lacunarity = 2.0  # Lacunarity
         height_multiplier = 5  # Ajustez la hauteur souhaitée
         index = 0
-        for y in range(int(self.showbase.enitiys.get("User")["pos"]["y"])-10, int(self.showbase.enitiys.get("User")["pos"]["y"])+10, 2):
-            for x in range(int(self.showbase.enitiys.get("User")["pos"]["x"])-10, int(self.showbase.enitiys.get("User")["pos"]["x"])+10, 2):
+        posY_1 = round_to_even(self.showbase.enitiys.get("User")["pos"]["y"])-11
+        posY_2 = round_to_even(self.showbase.enitiys.get("User")["pos"]["y"])+11
+        posX_1 = round_to_even(self.showbase.enitiys.get("User")["pos"]["x"])-11
+        posX_2 = round_to_even(self.showbase.enitiys.get("User")["pos"]["x"])+11
+
+        if int(self.showbase.enitiys.get("User")["pos"]["x"]) > -20 and int(self.showbase.enitiys.get("User")["pos"]["y"]) > -20 and int(self.showbase.enitiys.get("User")["pos"]["x"]) < 20 and int(self.showbase.enitiys.get("User")["pos"]["y"]) < 20:
+            posY_1 = -20
+            posY_2 = +20
+            posX_1 = -20
+            posX_2 = +20
+
+        print(posX_1, posX_2, posY_1, posY_2)
+        for y in range(posY_1, posY_2, 2):
+            for x in range(posX_1, posX_2, 2):
                 try:
                     self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": -20}}"]
-
+                    print("PLZ")
                     for z in range(-20, 40):
-                        try: 
+                        try:
                             self.showbase.blocks_for_file_simplet["{\"pos\": {\"x\": "+str(x)+", \"y\": "+str(y)+", \"z\": "+str(z)+"}}"]
                             self.createNewBlock(
                                 x,
@@ -228,6 +247,7 @@ class GenBlocks(ShowBase):
         collider = newBlockNode.attachNewNode(blockNode)
         collider.setPythonTag('owner', newBlockNode)
         newBlockNode.setPythonTag('block_type', type)
+        newBlockNode.setPythonTag('type', type)
         newBlockNode.setPythonTag('data_content', {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}) 
         newBlockNode.setPythonTag('data', {})
         self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": z}})] = {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}

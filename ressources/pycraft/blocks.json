@@ -43,10 +43,10 @@
   },
   "crafting-table": {
     "model_path": "./ressources/3d/models/blocks/crafting-table-block.glb",
-    "id": "crafting-table-Block",
+    "id": "crafting-tableBlock",
     "game-id": "minpy:crafting-table",
     "data": [],
-    "item": "crafting-tableItem"
+    "item": "crafting-table-Item"
   },
   "bedrock": {
     "model_path": "./ressources/3d/models/blocks/bedrock.glb",

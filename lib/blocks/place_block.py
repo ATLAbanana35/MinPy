@@ -64,7 +64,7 @@ class Raycaster:
                 self.showbase.createNewBlock(int(newBlockPos.x), int(newBlockPos.y), int(newBlockPos.z),
 self.showbase.selectedBlockType)    
             else:
-                print("Break");
+                print("Break")
 
 class Action_Place_Blocks(ShowBase):
 
@@ -85,4 +85,4 @@ class Action_Place_Blocks(ShowBase):
         self.showbase.cTrav.addCollider(rayNodePath, self.showbase.rayQueue)
 
         # Gestionnaire d'événements de souris
-        self.accept("y", raycaster.cast)
+        self.accept("mouse3", raycaster.cast)
