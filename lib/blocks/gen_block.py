@@ -67,11 +67,23 @@ class GenBlocks(ShowBase):
                         noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
                         # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
                         normalized_height = (noise_value + 1) * height_multiplier
+                        type = 'grass' if z == 0 else 'dirt'
+                        if -int(normalized_height) * 2 < -10:
+                            type = "stone"
+                        random_number = random.randint(0, 100)
+                        if random_number == 1:
+                            type = "iron-ore"
+                        random_number = random.randint(0, 50)
+                        if random_number == 1:
+                            type = "coal-ore"
+                        random_number = random.randint(0, 500)
+                        if random_number == 1:
+                            type = "diamond-ore"
                         self.createNewBlock(
                             x,
                             y,
                             -int(normalized_height) * 2,  # Utilisez la hauteur calculée
-                            'grass' if z == 0 else 'dirt'
+                            type
                         )
         for y in range(start_y, start_y + plusY, 2):
             for x in range(start_x, start_x + plusX, 2):
@@ -143,10 +155,10 @@ class GenBlocks(ShowBase):
         posX_2 = round_to_even(self.showbase.enitiys.get("User")["pos"]["x"])+11
 
         if int(self.showbase.enitiys.get("User")["pos"]["x"]) > -20 and int(self.showbase.enitiys.get("User")["pos"]["y"]) > -20 and int(self.showbase.enitiys.get("User")["pos"]["x"]) < 20 and int(self.showbase.enitiys.get("User")["pos"]["y"]) < 20:
-            posY_1 = -20
-            posY_2 = +20
-            posX_1 = -20
-            posX_2 = +20
+            posY_1 = -10
+            posY_2 = +10
+            posX_1 = -10
+            posX_2 = +10
 
         for y in range(posY_1, posY_2, 2):
             for x in range(posX_1, posX_2, 2):
@@ -172,11 +184,23 @@ class GenBlocks(ShowBase):
                         noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
                         # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
                         normalized_height = (noise_value + 1) * height_multiplier
+                        type = 'grass' if z == 0 else 'dirt'
+                        if -int(normalized_height) * 2 < -10:
+                            type = "stone"
+                        random_number = random.randint(0, 100)
+                        if random_number == 1:
+                            type = "iron-ore"
+                        random_number = random.randint(0, 50)
+                        if random_number == 1:
+                            type = "coal-ore"
+                        random_number = random.randint(0, 500)
+                        if random_number == 1:
+                            type = "diamond-ore"
                         self.createNewBlock(
                             x,
                             y,
-                            -int(normalized_height) * 2,  # Utilisez la hauteur calculée
-                            'grass' if z == 0 else 'dirt'
+                            -int(normalized_height) * 2-2,  # Utilisez la hauteur calculée
+                            type
                         )
         for y in range(int(self.showbase.enitiys.get("User")["pos"]["y"])-10, int(self.showbase.enitiys.get("User")["pos"]["y"])+10, 2):
             for x in range(int(self.showbase.enitiys.get("User")["pos"]["x"])-10, int(self.showbase.enitiys.get("User")["pos"]["x"])+10, 2):
@@ -238,8 +262,9 @@ class GenBlocks(ShowBase):
         collider.setPythonTag('owner', newBlockNode)
         newBlockNode.setPythonTag('block_type', type)
         newBlockNode.setPythonTag('type', type)
-        newBlockNode.setPythonTag('data_content', {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}) 
-        newBlockNode.setPythonTag('data', {})
+
+        newBlockNode.setPythonTag('data_content', {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": self.showbase.mods_blocks.get(type).get("data")}) 
+        newBlockNode.setPythonTag('data', self.showbase.mods_blocks.get(type).get("data"))
         self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": z}})] = {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}
 
     def createTree(self,x,y,z):

@@ -53,17 +53,18 @@ class User_Gravity(ShowBase):
                     if block.getTransform().getPos().getZ()-1 < userZ and block.getTransform().getPos().getZ()+2 > userZ:
                         userZ +=0.1
         for zombieUUID in self.showbase.zombiesUUID:
-            zombie = self.showbase.zombies[str(zombieUUID)+"_zombie"]
-            zombieShape = self.showbase.zombies[str(zombieUUID)+"_zombieShape"]
-            if zombie.getTransform().getPos().getX()-1 < userX and zombie.getTransform().getPos().getX()+2 > userX:
-                if zombie.getTransform().getPos().getY()-1 < userY and zombie.getTransform().getPos().getY()+2 > userY:
-                    if zombie.getTransform().getPos().getZ()-1 < userZ and zombie.getTransform().getPos().getZ()+2 > userZ:
-                        self.showbase.userLife -= 2
-                        print("Il vous reste", self.showbase.userLife, "de vie")
-                        zombieX = self.showbase.zombies[str(zombieUUID)+"_zombieShape"].getTransform().getPos().getX()
-                        zombieY = self.showbase.zombies[str(zombieUUID)+"_zombieShape"].getTransform().getPos().getY()
-                        zombieZ = self.showbase.zombies[str(zombieUUID)+"_zombieShape"].getTransform().getPos().getZ()
-                        self.showbase.zombies[str(zombieUUID)+"_zombieShape"].setTransform(TransformState.makePos(Vec3(zombieX+4, zombieY, zombieZ)))
+            if self.showbase.zombies.get(str(zombieUUID)+"_zombie") != None:
+                zombie = self.showbase.zombies[str(zombieUUID)+"_zombie"]
+                zombieShape = self.showbase.zombies[str(zombieUUID)+"_zombieShape"]
+                if zombie.getTransform().getPos().getX()-1 < userX and zombie.getTransform().getPos().getX()+2 > userX:
+                    if zombie.getTransform().getPos().getY()-1 < userY and zombie.getTransform().getPos().getY()+2 > userY:
+                        if zombie.getTransform().getPos().getZ()-1 < userZ and zombie.getTransform().getPos().getZ()+2 > userZ:
+                            self.showbase.userLife -= 2
+                            print("Il vous reste", self.showbase.userLife, "de vie")
+                            zombieX = self.showbase.zombies[str(zombieUUID)+"_zombieShape"].getTransform().getPos().getX()
+                            zombieY = self.showbase.zombies[str(zombieUUID)+"_zombieShape"].getTransform().getPos().getY()
+                            zombieZ = self.showbase.zombies[str(zombieUUID)+"_zombieShape"].getTransform().getPos().getZ()
+                            self.showbase.zombies[str(zombieUUID)+"_zombieShape"].setTransform(TransformState.makePos(Vec3(zombieX+4, zombieY, zombieZ)))
         if self.showbase.Isjump == True:
             if self.showbase.objectif > userZ:
                 userZ += 0.4

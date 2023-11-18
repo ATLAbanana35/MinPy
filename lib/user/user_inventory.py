@@ -43,7 +43,6 @@ class UserInventory(ShowBase):
         self.AText.destroy()
         textObject = OnscreenText(text ='^', pos = (-0.87,-1), scale = 0.3)
         self.AText = textObject
-        print(self.showbase.userInventory)
         if not 0 in self.showbase.userInventory and not "0" in self.showbase.userInventory:
             self.showbase.selectedBlockType = "nothing"
             return

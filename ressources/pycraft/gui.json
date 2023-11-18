@@ -10,14 +10,62 @@
       }
     }
   },
-  "Craft_Inventory": {
-    "id": "craft_inventory",
+  "Furnace": {
+    "id": "furnace",
+    "image": "ressources/image/gui/player_inventory.png",
+    "scale": [1, 0.5, 1],
+    "Text": "Four",
+    "crafts": {
+      "iron-ingot": {
+        "coal-ore": 1,
+        "iron-ore": 1,
+        "shell": "import time\ntime.sleep(5)"
+      }
+    }
+  },
+  "Crafting-Table": {
+    "id": "crafting-table",
     "image": "ressources/image/gui/player_inventory.png",
     "scale": [1, 0.5, 1],
     "Text": "Table de craft",
     "crafts": {
-      "crafting-table": {
-        "wood": 4
+      "furnace": {
+        "stone": 8
+      },
+      "wooden-sword": {
+        "stick": 1,
+        "wood": 2
+      },
+      "stone-sword": {
+        "stick": 1,
+        "stone": 2
+      },
+      "iron-sword": {
+        "stick": 1,
+        "iron-ingot": 2
+      },
+      "diamond-sword": {
+        "stick": 1,
+        "diamond-ore": 2
+      },
+      "wooden-pickaxe": {
+        "stick": 2,
+        "wood": 3
+      },
+      "stone-pickaxe": {
+        "stick": 2,
+        "stone": 3
+      },
+      "iron-pickaxe": {
+        "stick": 2,
+        "iron-ingot": 3
+      },
+      "diamond-pickaxe": {
+        "stick": 2,
+        "diamond-ore": 3
+      },
+      "stick": {
+        "wood": 3
       }
     }
   }

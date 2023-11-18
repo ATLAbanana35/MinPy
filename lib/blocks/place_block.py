@@ -43,14 +43,21 @@ class Raycaster:
             normal = rayHit.getSurfaceNormal(hitNodePath)
             hitObject = hitNodePath.getPythonTag('owner')
             distanceFromPlayer = hitObject.getDistance(self.camera)
-            if hitObject.getPythonTag("type") == "crafting-table":
-                self.showbase.gui_instance.open_craft_gui(self.showbase.mods_guis["Craft_Inventory"])
-                return 0
+
             hitBlockPos = hitObject.getPos()
             newBlockPos = hitBlockPos + normal * 2
             ObjectType = self.showbase.selectedBlockType
             trne = 0
             IN = 0
+            if hitObject != None:
+                if hitObject.getPythonTag('type') == "crafting-table":
+                    self.showbase.gui_instance.open_craft_gui(self.showbase.mods_guis["Crafting-Table"])
+                if hitObject.getPythonTag('type') == "furnace":
+                    self.showbase.gui_instance.open_craft_gui(self.showbase.mods_guis["Furnace"])
+            if self.showbase.mods_items.get(self.showbase.selectedBlockType)!= None:
+                if self.showbase.mods_items[self.showbase.selectedBlockType]["data"].get("not_block") == True:
+                    return
+
             for indexX in self.showbase.userInventory:
                 element = self.showbase.userInventory[indexX]
                 if element[0]["id"].replace("Item", "") == ObjectType:
@@ -64,7 +71,8 @@ class Raycaster:
                 self.showbase.selectedBlockType = "nothing"
             if self.showbase.selectedBlockType != "nothing":
                 self.showbase.createNewBlock(int(newBlockPos.x), int(newBlockPos.y), int(newBlockPos.z),
-self.showbase.selectedBlockType)    
+self.showbase.selectedBlockType)
+                self.showbase.sound.play("default-place-block.mp3", Point3(newBlockPos.x, newBlockPos.y, newBlockPos.z))
             else:
                 print("Break")
 

@@ -2,6 +2,7 @@ from direct.showbase.ShowBase import ShowBase
 from threading import Timer  
 from panda3d.core import Vec3, NodePath, LineSegs, LPoint3, Camera, OrthographicLens
 from panda3d.bullet import BulletWorld
+
 import time
 from threading import Lock
 import json
@@ -20,8 +21,11 @@ from lib.entitys.zombie_spawn import ZombieGen
 from lib.entitys.pig_spawn import pigGen
 from lib.user.user_inventory import UserInventory
 from lib.gui.open_gui import GUI_OPENING
+from lib.action.sound import Sound
 
+from panda3d.core import loadPrcFile
 
+loadPrcFile("config.prc")
 
 print("MinPy Démmarre, Bon jeu!")
 def setTimeout(fn, ms, *args, **kwargs): 
@@ -31,6 +35,13 @@ def setTimeout(fn, ms, *args, **kwargs):
 
 class Main(ShowBase):
     def __init__(self):
+        self.current_sound_walk = None
+        self.is_breaking_block = False
+        self.witch_block = None
+        self.break_progress = None
+        self.break_timer = None
+        self.block_to_break = None
+        self.time_to_break = 2
         print("Création du core 3d")
         self.world = BulletWorld()
         self.world.setGravity(Vec3(0, 0, -100))  # Gravité
@@ -81,8 +92,8 @@ class Main(ShowBase):
             self.enitiys["User"] = {
     "type": "user",
       "pos": {
-        "x": 10,
-        "y": 10,
+        "x": 1,
+        "y": 1,
         "z": 5
       },
       "data": {
@@ -94,15 +105,14 @@ class Main(ShowBase):
             if int(self.enitiys.get("User")["pos"]["x"]) > -20 and int(self.enitiys.get("User")["pos"]["y"]) > -20 and int(self.enitiys.get("User")["pos"]["x"]) < 20 and int(self.enitiys.get("User")["pos"]["y"]) < 20:
                 print("PLAYER DON'T CHANGE POSITION")
             else:
-                self.TerrainUserX=int(self.enitiys.get("User")["pos"]["x"])-10
-                self.TerrainUserY=int(self.enitiys.get("User")["pos"]["y"])-10
+                self.TerrainUserX=int(self.enitiys.get("User")["pos"]["x"])-5
+                self.TerrainUserY=int(self.enitiys.get("User")["pos"]["y"])-5
                 self.LastPosX = int(self.enitiys.get("User")["pos"]["x"])
                 self.LastPosY = int(self.enitiys.get("User")["pos"]["y"])
         f.close()
         self.Isjump = False
         self.objectif = 10
-
-
+        self.sound = Sound(self)
         print("Chargement du terrain")
         self.blocksgenerated = GenBlocks(self)
         self.user_inventory = UserInventory(self)
@@ -124,7 +134,13 @@ class Main(ShowBase):
         def open_player_gui():
             self.gui_instance.open_craft_gui(self.mods_guis["Player_Inventory"])
         self.accept("e", open_player_gui)
-
+        def delete_object():
+            for indexX in self.userInventory:
+                element = self.userInventory[indexX]
+                if element[0]["id"].replace("Item", "") == self.selectedBlockType:
+                    del self.userInventory[indexX]
+                    break
+        self.accept("q", delete_object)
         # Créez un objet LineSegs pour dessiner la croix
         # Créez une nouvelle région d'affichage (display region)
         self.accept("0", self.world_saving.save_to_file)
@@ -167,6 +183,7 @@ class Main(ShowBase):
         self.user_move.update()
         self.user_gravity.update_user_to_shape()
         self.deadControl.update_dead()
+        self.break_block.is_clicking()
         return task.cont
     def gravity_upate_loop(self, task):
         self.user_gravity.is_under_block()

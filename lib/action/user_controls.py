@@ -107,27 +107,41 @@ class UserMovement(ShowBase):
     def update(self):
             # Vitesse de déplacement
             moveSpeed = 1
+            def s():
+                if self.showbase.current_sound_walk != None:
+                    if self.showbase.current_sound_walk.status() == 1:
+                        self.showbase.current_sound_walk = self.showbase.sound.play("walk.mp3")
+                else:
+                    self.showbase.current_sound_walk = self.showbase.sound.play("walk.mp3")
             # Déplacement en vue FPS
             if self.movingForward:
+                s()
                 tr=self.showbase.userShape.getTransform().getPos()
                 self.showbase.userShape.setTransform(TransformState.makePos(tr + self.showbase.cameraNode.getNetTransform().getMat().getRow3(1) * moveSpeed))
             if self.movingBackward:
+                s()
                 tr=self.showbase.userShape.getTransform().getPos()
                 self.showbase.userShape.setTransform(TransformState.makePos(tr - self.showbase.cameraNode.getNetTransform().getMat().getRow3(1) * moveSpeed))
             if self.strafingLeft:
+                s()
                 tr=self.showbase.userShape.getTransform().getPos()
                 self.showbase.userShape.setTransform(TransformState.makePos(tr + self.showbase.cameraNode.getNetTransform().getMat().getRow3(0) * moveSpeed))
             if self.strafingRight:
+                s()
                 tr=self.showbase.userShape.getTransform().getPos()
                 self.showbase.userShape.setTransform(TransformState.makePos(tr - self.showbase.cameraNode.getNetTransform().getMat().getRow3(0) * moveSpeed))
 
             # Rotation de la caméra
             rotateSpeed = 1.0
             if self.rotatingLeft:
+                s()
                 self.showbase.character.setH(self.showbase.character.getH() + rotateSpeed)
             if self.rotatingRight:
+                s()
                 self.showbase.character.setH(self.showbase.character.getH() - rotateSpeed)
             if self.rotatingUp:
+                s()
                 self.showbase.cameraNode.setP(self.showbase.cameraNode.getP() - rotateSpeed)
             if self.rotatingDown:
+                s()
                 self.showbase.cameraNode.setP(self.showbase.cameraNode.getP() + rotateSpeed)
