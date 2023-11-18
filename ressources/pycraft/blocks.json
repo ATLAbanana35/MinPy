@@ -50,6 +50,15 @@
     },
     "item": "oakItem"
   },
+  "nether-rack": {
+    "model_path": "./ressources/3d/models/blocks/nether-rack-block.glb",
+    "id": "nether-rackBlock",
+    "game-id": "minpy:nether-rack",
+    "data": {
+      "strength": 0.3
+    },
+    "item": "nether-rackItem"
+  },
   "iron-ore": {
     "model_path": "./ressources/3d/models/blocks/iron-ore.glb",
     "id": "iron-oreBlock",
@@ -60,6 +69,16 @@
     },
     "item": "iron-oreItem"
   },
+  "ender-portal": {
+    "model_path": "./ressources/3d/models/blocks/ender-portal.glb",
+    "id": "ender-portalBlock",
+    "game-id": "minpy:ender-portal",
+    "data": {
+      "strength": -1,
+      "tool_w": 1000
+    },
+    "item": "ender-portalItem"
+  },
   "coal-ore": {
     "model_path": "./ressources/3d/models/blocks/coal-ore.glb",
     "id": "coal-oreBlock",
@@ -67,6 +86,16 @@
     "data": {
       "strength": 5,
       "tool_w": 2
+    },
+    "item": "coalItem"
+  },
+  "obsidian": {
+    "model_path": "./ressources/3d/models/blocks/obsidian-block.glb",
+    "id": "obsidianBlock",
+    "game-id": "minpy:obsidian",
+    "data": {
+      "strength": 20,
+      "tool_w": 5
     },
     "item": "coalItem"
   },

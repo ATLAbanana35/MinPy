@@ -67,7 +67,7 @@ class User_Gravity(ShowBase):
                             self.showbase.zombies[str(zombieUUID)+"_zombieShape"].setTransform(TransformState.makePos(Vec3(zombieX+4, zombieY, zombieZ)))
         if self.showbase.Isjump == True:
             if self.showbase.objectif > userZ:
-                userZ += 0.4
+                userZ += 0.2
             else:
                 self.showbase.Isjump = False
         self.showbase.userShape.setTransform(TransformState.makePos(Vec3(userX, userY, userZ)))

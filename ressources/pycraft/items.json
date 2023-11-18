@@ -35,6 +35,18 @@
     "game-id": "minpy:oak",
     "data": {}
   },
+  "nether-rack": {
+    "image_path": "./ressources/image/items/nether-rack-item.png",
+    "id": "nether-rackItem",
+    "game-id": "minpy:nether-rack",
+    "data": {}
+  },
+  "obsidian": {
+    "image_path": "./ressources/image/items/obsidian-item.png",
+    "id": "obsidianItem",
+    "game-id": "minpy:obsidian",
+    "data": {}
+  },
   "iron-ore": {
     "image_path": "./ressources/image/items/iron-ore-item.png",
     "id": "iron-oreItem",
@@ -127,6 +139,20 @@
     "image_path": "./ressources/image/items/stick-item.png",
     "id": "stickItem",
     "game-id": "minpy:stick",
+    "data": {
+      "not_block": true
+    }
+  },
+  "ender-portal": {
+    "image_path": "./ressources/image/items/ender-portal-item.png",
+    "id": "ender-portalItem",
+    "game-id": "minpy:ender-portal",
+    "data": {}
+  },
+  "flint-and-coal": {
+    "image_path": "./ressources/image/items/flint-and-coal-item.png",
+    "id": "flint-and-coalItem",
+    "game-id": "minpy:flint-and-coal",
     "data": {
       "not_block": true
     }

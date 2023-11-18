@@ -2,9 +2,6 @@ from panda3d.core import LineSegs, NodePath
 from panda3d.bullet import BulletBoxShape, BulletRigidBodyNode
 from panda3d.core import Geom, GeomTriangles, BitMask32, Vec3
 from panda3d.core import GeomVertexFormat, GeomVertexData, GeomVertexWriter, GeomNode, TransformState, WindowProperties
-import subprocess
-import sys
-import os 
 
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import Point3, Vec3, CollisionTraverser, CollisionRay, CollisionNode, CollisionHandlerQueue, Point2
@@ -58,8 +55,6 @@ class Raycaster:
                 if hitObject.getPythonTag('type') == "obsidian":
                     if self.showbase.selectedBlockType == "flint-and-coal":
                         print("Go NETHER!")
-                        self.showbase.world_saving.save_to_file_without_exit()
-                        os.system("python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" nlib/nether.py")
                         exit()
                 if hitObject.getPythonTag('type') == "furnace":
                     self.showbase.gui_instance.open_craft_gui(self.showbase.mods_guis["Furnace"])

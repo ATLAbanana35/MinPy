@@ -66,6 +66,10 @@
       },
       "stick": {
         "wood": 3
+      },
+      "flint-and-coal": {
+        "coal-ore": 1,
+        "iron-ingot": 1
       }
     }
   }

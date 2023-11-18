@@ -59,31 +59,28 @@ class GenBlocks(ShowBase):
                         except KeyError:
                             owoiwedwiodwopdjodoqwqwqw2=False
                 except KeyError:
-                    randin = random.randint(1, 40)
-                    if randin == 14:
-                        self.createTree(x, y, 0)
-                    for z in range(0, 10):
+                    for z in range(0, 30):
                         # Calculez la hauteur en utilisant le bruit perlin
                         noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
                         # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
                         normalized_height = (noise_value + 1) * height_multiplier
-                        type = 'grass' if z == 0 else 'dirt'
-                        if -int(normalized_height) * 2 < -10:
-                            type = "stone"
-                        random_number = random.randint(0, 100)
-                        if random_number == 1:
-                            type = "iron-ore"
-                        random_number = random.randint(0, 50)
-                        if random_number == 1:
-                            type = "coal-ore"
-                        random_number = random.randint(0, 500)
-                        if random_number == 1:
-                            type = "diamond-ore"
+                        type = "nether-rack"
                         random_number = random.randint(0, 500)
                         if random_number == 1:
                             type = "obsidian"
-                            print(type, -int(normalized_height) * 2)
-                        self.createNewBlock(
+                        random_number = random.randint(0, 20000)
+                        if random_number == 1:
+                            self.create_donjon(x,y)
+                            print("DONJONS SPAWN!")
+                        if z > 10:
+                            self.createNewBlock(
+                            x,
+                            y,
+                            z,  # Utilisez la hauteur calculée
+                            type
+                        )
+                        else:
+                            self.createNewBlock(
                             x,
                             y,
                             -int(normalized_height) * 2,  # Utilisez la hauteur calculée
@@ -181,32 +178,31 @@ class GenBlocks(ShowBase):
                         except KeyError:
                             owoiwedwiodwopdjodoqwqwqw2=False
                 except KeyError:
-                    if random.randint(1, 40) == 14:
-                        self.createTree(x, y, 0)
-                    for z in range(0, 10):
+                    for z in range(0, 30):
                         # Calculez la hauteur en utilisant le bruit perlin
                         noise_value = noise.snoise3(x * scale, y * scale, z * scale, octaves=octaves, persistence=persistence, lacunarity=lacunarity)
                         # Normalisez la valeur entre -1 et 1 et multipliez-la par le coefficient d'élévation
                         normalized_height = (noise_value + 1) * height_multiplier
-                        type = 'grass' if z == 0 else 'dirt'
-                        if -int(normalized_height) * 2 < -10:
-                            type = "stone"
-                        random_number = random.randint(0, 100)
-                        if random_number == 1:
-                            type = "iron-ore"
-                        random_number = random.randint(0, 50)
-                        if random_number == 1:
-                            type = "coal-ore"
-                        random_number = random.randint(0, 500)
-                        if random_number == 1:
-                            type = "diamond-ore"
+                        type = "nether-rack"
                         random_number = random.randint(0, 500)
                         if random_number == 1:
                             type = "obsidian"
-                        self.createNewBlock(
+                        random_number = random.randint(0, 20000)
+                        if random_number == 1:
+                            self.create_donjon(x,y)
+                            print("donjon spawn!")
+                        if z > 10:
+                            self.createNewBlock(
                             x,
                             y,
-                            -int(normalized_height) * 2-2,  # Utilisez la hauteur calculée
+                            z,  # Utilisez la hauteur calculée
+                            type
+                        )
+                        else:
+                            self.createNewBlock(
+                            x,
+                            y,
+                            -int(normalized_height) * 2,  # Utilisez la hauteur calculée
                             type
                         )
         for y in range(int(self.showbase.enitiys.get("User")["pos"]["y"])-10, int(self.showbase.enitiys.get("User")["pos"]["y"])+10, 2):
@@ -223,13 +219,13 @@ class GenBlocks(ShowBase):
 
         # Créez votre lumière directionnelle principale
         mainLight = DirectionalLight('main light')
-        mainLight.setColor((1, 1, 1, 1))  # Couleur de la lumière
+        mainLight.setColor((1, 0, 0, 1))  # Couleur de la lumière
         mainLightNodePath = lightNode.attachNewNode(mainLight)
         mainLightNodePath.setHpr(30, -60, 0)  # Orientation de la lumière
 
         # Créez une lumière ambiante
         ambientLight = AmbientLight('ambient light')
-        ambientLight.setColor((0.3, 0.3, 0.3, 1))  # Couleur de la lumière ambiante
+        ambientLight.setColor((1, 0, 0, 1))  # Couleur de la lumière ambiante
         ambientLightNodePath = lightNode.attachNewNode(ambientLight)
 
         # Attachez tous les objets que vous souhaitez éclairer au nœud parent
@@ -269,90 +265,53 @@ class GenBlocks(ShowBase):
         collider.setPythonTag('owner', newBlockNode)
         newBlockNode.setPythonTag('block_type', type)
         newBlockNode.setPythonTag('type', type)
+        self.showbase._newBlock['block-collision-node_'+str(x)+"_"+str(y)+"_"+str(z)] = collider
 
         newBlockNode.setPythonTag('data_content', {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": self.showbase.mods_blocks.get(type).get("data")}) 
         newBlockNode.setPythonTag('data', self.showbase.mods_blocks.get(type).get("data"))
         self.showbase.blocks_for_file_simplet[json.dumps({"pos": {"x": x,"y": y,"z": z}})] = {"pos": {"x": x,"y": y,"z": z}, "type": type, "data": {}}
+    def remove_block(self, x,y,z):
+                hitNodePath = self.showbase._newBlock.get('block-collision-node_'+str(x)+"_"+str(y)+"_"+str(z))
+                if hitNodePath != None:
+                    hitObject = hitNodePath.getPythonTag("owner")
+                    Pos = hitNodePath.getName().split("block-collision-node_")[1].split("_")
+                    index = "{\"pos\": {\"x\": "+Pos[0]+", \"y\": "+Pos[1]+", \"z\": "+Pos[2]+"}}"
+                    hitNodePath.clearPythonTag('owner')
+                    hitObject.removeNode()
+                    try:
+                        self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])
+                    except KeyError:
+                        print("ERROR_AT_LINE_30_'self.showbase.world.removeRigidBody(self.showbase.blocks[hitNodePath.getName()])'_CORRIGÉE")
+                    del self.showbase.blocks[hitNodePath.getName()]
+                    del self.showbase.blocks_for_file_simplet[index]
 
-    def createTree(self,x,y,z):
-        self.createNewBlock(
-                    x,
-                    y,
-                    z,  # Utilisez la hauteur calculée
-                    "wood"
-        )
-        self.createNewBlock(
-                    x,
-                    y,
-                    z+2,  # Utilisez la hauteur calculée
-                    "wood"
-        )
-        self.createNewBlock(
-                    x,
-                    y,
-                    z+4,  # Utilisez la hauteur calculée
-                    "wood"
-        )
-        self.createNewBlock(
-                    x,
-                    y,
-                    z+6,  # Utilisez la hauteur calculée
-                    "wood"
-        )
-        self.createNewBlock(
-                    x,
-                    y,
-                    z+8,  # Utilisez la hauteur calculée
-                    "oak"
-        )
-        self.createNewBlock(
-                    x+2,
-                    y,
-                    z+6,  # Utilisez la hauteur calculée
-                    "oak"
-        )
-        self.createNewBlock(
-                    x-2,
-                    y,
-                    z+6,  # Utilisez la hauteur calculée
-                    "oak"
-        )
-        self.createNewBlock(
-                    x,
-                    y+2,
-                    z+6,  # Utilisez la hauteur calculée
-                    "oak"
-        )
-        self.createNewBlock(
-                    x,
-                    y-2,
-                    z+6,  # Utilisez la hauteur calculée
-                    "oak"
-        )
-        self.createNewBlock(
-                    x-2,
-                    y+2,
-                    z+6,  # Utilisez la hauteur calculée
-                    "oak"
-        )
-        self.createNewBlock(
-                    x+2,
-                    y-2,
-                    z+6,  # Utilisez la hauteur calculée
-                    "oak"
-        )
-        self.createNewBlock(
-                    x+2,
-                    y+2,
-                    z+6,  # Utilisez la hauteur calculée
-                    "oak"
-        )
-        self.createNewBlock(
-                    x-2,
-                    y-2,
-                    z+6,  # Utilisez la hauteur calculée
-                    "oak"
-        )
+    def create_donjon(self,x,y):
+    # Création du so
+        for Sx in range(-10, 10, 2):
+            for Sy in range(-10, 10, 2):
+                for Sz in range(0, 40, 2):
+                    self.remove_block(Sx+x, Sy+y, Sz)
+        def create_room(decal):
+            size = 5
+            if decal == 0:
+                self.createNewBlock(x + 2, y+2, 1, "ender-portal")
+            for Sx in range(0,size,2):
+                for Sy in range(0,size,2):
+                    self.createNewBlock(x + Sx + decal, y + Sy, 0, "stone")
+
+            # Création des murs autour du sol
+            for Sx in range(0,size,2):
+                for Sz in range(0,10,2):
+                    self.createNewBlock(x + Sx + decal, y - 1, 0+Sz, "stone")  # Mur inférieur
+                    self.createNewBlock(x + Sx + decal, y + size, 0+Sz, "stone")  # Mur supérieur
+
+            for Sy in range(0,size,2):
+                for Sz in range(0,10,2):
+                    self.createNewBlock(x - 1 + decal, y + Sy, 0+Sz, "stone")  # Mur gauche
+                    self.createNewBlock(x + size + decal, y + Sy, 0+Sz, "stone")  # Mur droit
+        create_room(0)
+        create_room(5)
+        create_room(-5)
     def __init__(self, showbase):
         self.showbase = showbase
         self.showbase.blocks = {}

@@ -22,12 +22,10 @@ from lib.entitys.pig_spawn import pigGen
 from lib.user.user_inventory import UserInventory
 from lib.gui.open_gui import GUI_OPENING
 from lib.action.sound import Sound
-
 from panda3d.core import loadPrcFile
-
+import os
 loadPrcFile("config.prc")
-
-print("MinPy Démmarre, Bon jeu!")
+print("MinPy Démmarre, Bon jeu!", os.getcwd())
 def setTimeout(fn, ms, *args, **kwargs): 
     t = Timer(ms / 1000., fn, args=args, kwargs=kwargs)
     t.start()
@@ -38,6 +36,7 @@ class Main(ShowBase):
         self.current_sound_walk = None
         self.is_breaking_block = False
         self.witch_block = None
+        self._newBlock = {}
         self.break_progress = None
         self.break_timer = None
         self.block_to_break = None
@@ -69,7 +68,7 @@ class Main(ShowBase):
         self.mods_blocks = json.loads(f.read())
         for index in self.mods_blocks:
             element = self.mods_blocks[index]
-            self.mod_blocks_loaded[element["id"]] = loader.loadModel(element["model_path"])
+            self.mod_blocks_loaded[element["id"]] = loader.loadModel("../"+element["model_path"])
         f = open("ressources/pycraft/gui.json", "r")
         self.mods_guis = json.loads(f.read())
         f = open("ressources/pycraft/items.json", "r")
@@ -82,9 +81,10 @@ class Main(ShowBase):
         print("Lecture du monde")
         f = open("world.json", "r")
         self.JSON = json.loads(f.read())
-        self.JSON_World = self.JSON["lib"]
-        self.nlib = self.JSON["nlib"]
+        self.JSON_World = self.JSON["nlib"]
+        self.lib = self.JSON["lib"]
         self.elib = self.JSON["elib"]
+        del self.JSON
         self.blocks_for_file_simplet = self.JSON_World["blocks"]
         self.enitiys = self.JSON_World["entitys"]
         self.TerrainUserX=-5
@@ -204,3 +204,5 @@ class Main(ShowBase):
 if __name__ == "__main__":
     app = Main()
     app.run()
+
+from nlib.nether import *
