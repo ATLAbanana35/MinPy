@@ -23,6 +23,13 @@
     },
     "item": "stoneItem"
   },
+  "end-stone": {
+    "model_path": "./ressources/3d/models/blocks/end-stone.glb",
+    "id": "end-stoneBlock",
+    "game-id": "minpy:end-stone",
+    "data": {},
+    "item": "stoneItem"
+  },
   "sand": {
     "model_path": "./ressources/3d/models/blocks/sand-block.glb",
     "id": "sandBlock",

@@ -3,10 +3,12 @@
 ## MinPy est un project de Minecraft en python, même si le gameplay n'est pas parfait il ajoute des fonctionnalités avencées
 
 Pour l'instant :
+
 - GamePlay de base (bouger)
 - Casser/Poser des blocks
 - Génération du terrain par "noise"
-- Génération du terrain au fur et à mesure 
+- Génération du terrain au fur et à mesure
+
 ## Table des Matières
 
 - [Prérequis](#prérequis)
@@ -17,9 +19,10 @@ Pour l'instant :
 
 ## Prérequis
 
-- Python et pip (Linux: ```apt install python3 | apt install py-pip```, Windows: Microsoft Store)
-- Panda3d: (```pip install panda3d```)
-- Noise (```pip install noise```)
+- Python et pip (Linux: `apt install python3 | apt install py-pip`, Windows: Microsoft Store)
+- Panda3d: (`pip install panda3d`)
+- Noise (`pip install noise`)
+
 ## Installation
 
 - Installer le project (télécharger-le à l'aide de git ou du "Télécharger dans le fichier zip")
@@ -56,7 +59,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-## Credits : 
+## Credits :
+
 "Minecraft - Zombie" (https://skfb.ly/6RnEO) by Vincent Yanez is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 "Minecraft - Pig" (https://skfb.ly/6SRyX) by Vincent Yanez is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 A lot of code by : https://github.com/shaunwa/cbt-panda3d-minecraft
+ender-dragon https://sketchfab.com/3d-models/minecraft-ender-hydra-3-headed-ender-dragon-9fdaa7bf7dbe499482d10705cbe366d2

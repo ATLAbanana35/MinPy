@@ -20,27 +20,27 @@ class GenBlocks(ShowBase):
         plusX = 5
         if direction == "x+":
             self.showbase.TerrainUserX = self.showbase.TerrainUserX+5
-            start_x = self.showbase.TerrainUserX + 21
+            start_x = self.showbase.TerrainUserX + 11
             start_y = self.showbase.TerrainUserY
-            plusY = 20
+            plusY = 10
         elif direction == "x-":
             self.showbase.TerrainUserX = self.showbase.TerrainUserX-5
 
             start_x = self.showbase.TerrainUserX - 1
             start_y = self.showbase.TerrainUserY
-            plusY = 20
+            plusY = 10
         elif direction == "y+":
             self.showbase.TerrainUserY = self.showbase.TerrainUserY+5
 
             start_x = self.showbase.TerrainUserX
-            start_y = self.showbase.TerrainUserY + 21
-            plusX = 20
+            start_y = self.showbase.TerrainUserY + 11
+            plusX = 10
         elif direction == "y-":
             self.showbase.TerrainUserY = self.showbase.TerrainUserY-5
 
             start_x = self.showbase.TerrainUserX
             start_y = self.showbase.TerrainUserY - 1
-            plusX = 20
+            plusX = 10
         else:
             return
         for y in range(start_y, start_y + plusY, 2):
@@ -104,23 +104,24 @@ class GenBlocks(ShowBase):
         plusY = 10
         plusX = 10
         if direction == "x-":
-            start_x = self.showbase.TerrainUserX + 20
+            start_x = self.showbase.TerrainUserX + 15
             start_y = self.showbase.TerrainUserY
-            plusY = 20
+            plusY = 10
         elif direction == "x+":
-            start_x = self.showbase.TerrainUserX
+            start_x = self.showbase.TerrainUserX-4
             start_y = self.showbase.TerrainUserY
-            plusY = 20
+            plusY = 10
         elif direction == "y-":
             start_x = self.showbase.TerrainUserX
-            start_y = self.showbase.TerrainUserY + 20
-            plusX = 20
+            start_y = self.showbase.TerrainUserY + 15
+            plusX = 10
         elif direction == "y+":
             start_x = self.showbase.TerrainUserX
-            start_y = self.showbase.TerrainUserY
-            plusX = 20
+            start_y = self.showbase.TerrainUserY-4
+            plusX = 10
         else:
             return
+
         for z in range(-20, 20):
             for y in range(start_y, start_y + plusY, 2):
                 for x in range(start_x, start_x + plusX, 2):
@@ -158,12 +159,12 @@ class GenBlocks(ShowBase):
         posX_1 = round_to_even(self.showbase.enitiys.get("User")["pos"]["x"])-11
         posX_2 = round_to_even(self.showbase.enitiys.get("User")["pos"]["x"])+11
 
-        if int(self.showbase.enitiys.get("User")["pos"]["x"]) > -20 and int(self.showbase.enitiys.get("User")["pos"]["y"]) > -20 and int(self.showbase.enitiys.get("User")["pos"]["x"]) < 20 and int(self.showbase.enitiys.get("User")["pos"]["y"]) < 20:
+        if int(self.showbase.enitiys.get("User")["pos"]["x"]) > -10 and int(self.showbase.enitiys.get("User")["pos"]["y"]) > -10 and int(self.showbase.enitiys.get("User")["pos"]["x"]) < 10 and int(self.showbase.enitiys.get("User")["pos"]["y"]) < 10:
             posY_1 = -10
             posY_2 = +10
             posX_1 = -10
             posX_2 = +10
-
+        print("Spawn at : ", posX_1, posX_2, posY_1, posX_2)
         for y in range(posY_1, posY_2, 2):
             for x in range(posX_1, posX_2, 2):
                 try:

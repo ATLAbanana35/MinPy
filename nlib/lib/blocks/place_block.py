@@ -2,6 +2,9 @@ from panda3d.core import LineSegs, NodePath
 from panda3d.bullet import BulletBoxShape, BulletRigidBodyNode
 from panda3d.core import Geom, GeomTriangles, BitMask32, Vec3
 from panda3d.core import GeomVertexFormat, GeomVertexData, GeomVertexWriter, GeomNode, TransformState, WindowProperties
+import os
+import sys
+import platform
 
 from direct.showbase.ShowBase import ShowBase
 from panda3d.core import Point3, Vec3, CollisionTraverser, CollisionRay, CollisionNode, CollisionHandlerQueue, Point2
@@ -54,8 +57,31 @@ class Raycaster:
                     self.showbase.gui_instance.open_craft_gui(self.showbase.mods_guis["Crafting-Table"])
                 if hitObject.getPythonTag('type') == "obsidian":
                     if self.showbase.selectedBlockType == "flint-and-coal":
-                        print("Go NETHER!")
+                        self.showbase.world_saving.save_to_file_without_exit("lib")
+                        try:
+                            platform.linux_distribution()
+                            os.system("python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" main.py &")
+                            exit()
+                        except: 
+                            if platform.system() == "Windows":
+                                os.system("start python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" main.py")
+                                exit()
+                            elif platform.system() == "Darwin":
+                                os.system("open python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" main.py")
+                                exit()
+                if hitObject.getPythonTag('type') == "ender-portal":
+                    self.showbase.world_saving.save_to_file_without_exit("elib")
+                    try:
+                        platform.linux_distribution()
+                        os.system("python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" elib/ender.py &")
                         exit()
+                    except: 
+                        if platform.system() == "Windows":
+                            os.system("start python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" elib/ender.py")
+                            exit()
+                        elif platform.system() == "Darwin":
+                            os.system("open python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" elib/ender.py")
+                            exit()
                 if hitObject.getPythonTag('type') == "furnace":
                     self.showbase.gui_instance.open_craft_gui(self.showbase.mods_guis["Furnace"])
             if self.showbase.mods_items.get(self.showbase.selectedBlockType)!= None:

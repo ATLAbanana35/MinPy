@@ -66,7 +66,7 @@ class Raycaster:
                     if (hitObject.getPythonTag("data_content") != self.showbase.witch_block or time.time() < self.showbase.break_timer):
                         return
                     else:
-                        if hitObject.getPythonTag("data").get("tool_w") != None:
+                        if hitObject.getPythonTag("data").get("tool_w") != None and self.showbase.mods_items.get(self.showbase.selectedBlockType) != None:
                             if self.showbase.mods_items[self.showbase.selectedBlockType]["data"].get("tool_w") != None and self.showbase.mods_items.get(self.showbase.selectedBlockType) != None:
                                 if not self.showbase.mods_items[self.showbase.selectedBlockType]["data"].get("tool_w") >= hitObject.getPythonTag("data").get("tool_w"):
                                     print("Ce block DOIT se casser avec un outil avec une puissance de plus de :", hitObject.getPythonTag("data").get("tool_w"))

@@ -4,6 +4,10 @@ from panda3d.core import Vec3, NodePath, LineSegs, LPoint3, Camera, Orthographic
 from panda3d.bullet import BulletWorld
 import math
 import time
+import os
+import sys
+import platform
+
 from threading import Lock
 import json
 from direct.gui.OnscreenText import OnscreenText
@@ -85,6 +89,33 @@ class Main(ShowBase):
         self.JSON_World = self.JSON["lib"]
         self.nlib = self.JSON["nlib"]
         self.elib = self.JSON["elib"]
+        self.glib = self.JSON["glib"]
+        if self.glib.get("lib") != None:
+            if self.glib.get("lib") == "nlib":
+                try:
+                    platform.linux_distribution()
+                    os.system("python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" nlib/nether.py &")
+                    exit()
+                except: 
+                    if platform.system() == "Windows":
+                        os.system("start python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" nlib/nether.py")
+                        exit()
+                    elif platform.system() == "Darwin":
+                        os.system("open python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" nlib/nether.py")
+                        exit()
+            if self.glib.get("lib") == "elib":
+                try:
+                    platform.linux_distribution()
+                    os.system("python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" elib/ender.py &")
+                    exit()
+                except: 
+                    if platform.system() == "Windows":
+                        os.system("start python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" elib/ender.py")
+                        exit()
+                    elif platform.system() == "Darwin":
+                        os.system("open python"+str(sys.version_info.major)+"."+str(sys.version_info.minor)+" elib/ender.py")
+                        exit()
+
         self.blocks_for_file_simplet = self.JSON_World["blocks"]
         self.enitiys = self.JSON_World["entitys"]
         self.TerrainUserX=-5

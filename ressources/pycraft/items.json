@@ -17,6 +17,12 @@
     "game-id": "minpy:stone",
     "data": {}
   },
+  "end-stone": {
+    "image_path": "./ressources/image/items/end-stone-item.png",
+    "id": "end-stoneItem",
+    "game-id": "minpy:end-stone",
+    "data": {}
+  },
   "sand": {
     "image_path": "./ressources/image/items/sand-item.png",
     "id": "sandItem",

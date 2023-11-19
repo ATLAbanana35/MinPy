@@ -1,1 +1,5 @@
-{ "blocks": {}, "entitys": {} }
+{
+  "lib": { "blocks": {}, "entitys": {} },
+  "nlib": { "blocks": {}, "entitys": {} },
+  "elib": { "blocks": {}, "entitys": {} }
+}

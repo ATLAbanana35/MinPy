@@ -84,6 +84,7 @@ class Main(ShowBase):
         self.JSON_World = self.JSON["nlib"]
         self.lib = self.JSON["lib"]
         self.elib = self.JSON["elib"]
+        self.glib = self.JSON["glib"]
         del self.JSON
         self.blocks_for_file_simplet = self.JSON_World["blocks"]
         self.enitiys = self.JSON_World["entitys"]
@@ -111,6 +112,7 @@ class Main(ShowBase):
             else:
                 self.TerrainUserX=int(self.enitiys.get("User")["pos"]["x"])-5
                 self.TerrainUserY=int(self.enitiys.get("User")["pos"]["y"])-5
+                print(self.enitiys["User"])
                 self.LastPosX = int(self.enitiys.get("User")["pos"]["x"])
                 self.LastPosY = int(self.enitiys.get("User")["pos"]["y"])
                 self.userLife = int(self.enitiys.get("User")["data"]["life"])

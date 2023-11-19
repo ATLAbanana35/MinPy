@@ -46,12 +46,13 @@ class User_Gravity(ShowBase):
                 if block.getTransform().getPos().getY()-1.4 < userY and block.getTransform().getPos().getY()+1.4 > userY:
                     if block.getTransform().getPos().getZ()-1 < userZ and block.getTransform().getPos().getZ()+0.5 > userZ:
                         userZ += 0.5
+                        
         for blockIndex in self.showbase.blocks:
             block = self.showbase.blocks[blockIndex]
             if block.getTransform().getPos().getX()-1 < userX and block.getTransform().getPos().getX()+2 > userX:
                 if block.getTransform().getPos().getY()-1 < userY and block.getTransform().getPos().getY()+2 > userY:
                     if block.getTransform().getPos().getZ()-1 < userZ and block.getTransform().getPos().getZ()+2 > userZ:
-                        userZ +=0.1
+                        userZ += 0.1
         for zombieUUID in self.showbase.zombiesUUID:
             if self.showbase.zombies.get(str(zombieUUID)+"_zombie") != None:
                 zombie = self.showbase.zombies[str(zombieUUID)+"_zombie"]
