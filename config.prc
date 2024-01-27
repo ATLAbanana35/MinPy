@@ -1,1 +1,0 @@
-load-display pandagl

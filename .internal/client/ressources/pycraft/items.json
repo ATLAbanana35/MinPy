@@ -1,0 +1,198 @@
+{
+  "grass": {
+    "image_path": "./ressources/image/items/grass-item.png",
+    "id": "grassItem",
+    "game-id": "minpy:grass",
+    "data": {}
+  },
+  "dirt": {
+    "image_path": "./ressources/image/items/dirt-item.png",
+    "id": "dirtItem",
+    "game-id": "minpy:dirt",
+    "data": {}
+  },
+  "stone": {
+    "image_path": "./ressources/image/items/stone-item.png",
+    "id": "stoneItem",
+    "game-id": "minpy:stone",
+    "data": {}
+  },
+  "end-stone": {
+    "image_path": "./ressources/image/items/end-stone-item.png",
+    "id": "end-stoneItem",
+    "game-id": "minpy:end-stone",
+    "data": {}
+  },
+  "sand": {
+    "image_path": "./ressources/image/items/sand-item.png",
+    "id": "sandItem",
+    "game-id": "minpy:sand",
+    "data": {}
+  },
+  "wood": {
+    "image_path": "./ressources/image/items/planks-item.png",
+    "id": "woodItem",
+    "game-id": "minpy:wood",
+    "data": {}
+  },
+  "oak": {
+    "image_path": "./ressources/image/items/oak-item.png",
+    "id": "oakItem",
+    "game-id": "minpy:oak",
+    "data": {}
+  },
+  "nether-rack": {
+    "image_path": "./ressources/image/items/nether-rack-item.png",
+    "id": "nether-rackItem",
+    "game-id": "minpy:nether-rack",
+    "data": {}
+  },
+  "obsidian": {
+    "image_path": "./ressources/image/items/obsidian-item.png",
+    "id": "obsidianItem",
+    "game-id": "minpy:obsidian",
+    "data": {}
+  },
+  "iron-ore": {
+    "image_path": "./ressources/image/items/iron-ore-item.png",
+    "id": "iron-oreItem",
+    "game-id": "minpy:iron-ore",
+    "data": {}
+  },
+  "coal-ore": {
+    "image_path": "./ressources/image/items/coal-item.png",
+    "id": "coal-oreItem",
+    "game-id": "minpy:coal-ore",
+    "data": {}
+  },
+  "diamond-ore": {
+    "image_path": "./ressources/image/items/diamond-ore-item.png",
+    "id": "diamond-oreItem",
+    "game-id": "minpy:coal-diamond",
+    "data": {}
+  },
+  "crafting-table": {
+    "image_path": "./ressources/image/items/crafting-table-item.png",
+    "id": "crafting-tableItem",
+    "game-id": "minpy:crafting-table",
+    "data": {}
+  },
+  "wooden-sword": {
+    "image_path": "./ressources/image/items/wood_sword-item.png",
+    "id": "wooden-swordItem",
+    "game-id": "minpy:wooden-sword",
+    "data": {
+      "not_block": true,
+      "strength": 4
+    }
+  },
+  "wooden-pickaxe": {
+    "image_path": "./ressources/image/items/wood-pickaxe-item.png",
+    "id": "wooden-pickaxeItem",
+    "game-id": "minpy:wooden-pickaxe",
+    "data": {
+      "not_block": true,
+      "tool_w": 2,
+      "tool_p": 1.3
+    }
+  },
+  "stone-pickaxe": {
+    "image_path": "./ressources/image/items/stone-pickaxe-item.png",
+    "id": "stone-pickaxeItem",
+    "game-id": "minpy:stone-pickaxe",
+    "data": {
+      "not_block": true,
+      "tool_w": 3,
+      "tool_p": 1.9
+    }
+  },
+  "iron-pickaxe": {
+    "image_path": "./ressources/image/items/iron-pickaxe-item.png",
+    "id": "iron-pickaxeItem",
+    "game-id": "minpy:iron-pickaxe",
+    "data": {
+      "not_block": true,
+      "tool_w": 4,
+      "tool_p": 2.2
+    }
+  },
+  "diamond-pickaxe": {
+    "image_path": "./ressources/image/items/diamond-pickaxe-item.png",
+    "id": "diamond-pickaxeItem",
+    "game-id": "minpy:diamond-pickaxe",
+    "data": {
+      "not_block": true,
+      "tool_w": 5,
+      "tool_p": 4
+    }
+  },
+  "stone-sword": {
+    "image_path": "./ressources/image/items/stone-sword-item.png",
+    "id": "stone-swordItem",
+    "game-id": "minpy:stone-sword",
+    "data": {
+      "not_block": true,
+      "strength": 6
+    }
+  },
+  "furnace": {
+    "image_path": "./ressources/image/items/furnace-item.png",
+    "id": "furnaceItem",
+    "game-id": "minpy:furnace",
+    "data": {}
+  },
+  "stick": {
+    "image_path": "./ressources/image/items/stick-item.png",
+    "id": "stickItem",
+    "game-id": "minpy:stick",
+    "data": {
+      "not_block": true
+    }
+  },
+  "ender-portal": {
+    "image_path": "./ressources/image/items/ender-portal-item.png",
+    "id": "ender-portalItem",
+    "game-id": "minpy:ender-portal",
+    "data": {}
+  },
+  "flint-and-coal": {
+    "image_path": "./ressources/image/items/flint-and-coal-item.png",
+    "id": "flint-and-coalItem",
+    "game-id": "minpy:flint-and-coal",
+    "data": {
+      "not_block": true
+    }
+  },
+  "iron-ingot": {
+    "image_path": "./ressources/image/items/iron-ingot-item.png",
+    "id": "iron-ingotItem",
+    "game-id": "minpy:iron-ingot",
+    "data": {
+      "not_block": true
+    }
+  },
+  "iron-sword": {
+    "image_path": "./ressources/image/items/iron-sword-item.png",
+    "id": "iron-swordItem",
+    "game-id": "minpy:iron-sword",
+    "data": {
+      "not_block": true,
+      "strength": 6
+    }
+  },
+  "diamond-sword": {
+    "image_path": "./ressources/image/items/diamond-sword-item.png",
+    "id": "diamond-swordItem",
+    "game-id": "minpy:diamond-sword",
+    "data": {
+      "not_block": true,
+      "strength": 12
+    }
+  },
+  "bedrock": {
+    "image_path": "./ressources/image/items/bedrock-item.png",
+    "id": "bedrockItem",
+    "game-id": "minpy:bedrock",
+    "data": {}
+  }
+}

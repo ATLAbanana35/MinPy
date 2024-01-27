@@ -1,0 +1,10 @@
+{
+  "stone_age": { "Name": "Age de la stone", "eventId": "0x00001" },
+  "iron_age": { "Name": "Age du Fer", "eventId": "0x00011" },
+  "diamond_age": { "Name": "Age du Diamant", "eventId": "0x00111" },
+  "brase": { "Name": "Aller dans le nether", "eventId": "0x01111" },
+  "wall_of_the_void": {
+    "Name": "Combattre l'ender guardian",
+    "eventId": "0x11111"
+  }
+}

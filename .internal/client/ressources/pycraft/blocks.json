@@ -1,0 +1,147 @@
+{
+  "grass": {
+    "model_path": "./ressources/3d/models/blocks/grass-block.glb",
+    "id": "grassBlock",
+    "game-id": "minpy:grass",
+    "data": {},
+    "item": "grassItem"
+  },
+  "dirt": {
+    "model_path": "./ressources/3d/models/blocks/dirt-block.glb",
+    "id": "dirtBlock",
+    "game-id": "minpy:dirt",
+    "data": {},
+    "item": "dirtItem"
+  },
+  "stone": {
+    "model_path": "./ressources/3d/models/blocks/stone-block.glb",
+    "id": "stoneBlock",
+    "game-id": "minpy:stone",
+    "data": {
+      "strength": 5,
+      "tool_w": 2
+    },
+    "item": "stoneItem"
+  },
+  "end-stone": {
+    "model_path": "./ressources/3d/models/blocks/end-stone.glb",
+    "id": "end-stoneBlock",
+    "game-id": "minpy:end-stone",
+    "data": {},
+    "item": "stoneItem"
+  },
+  "sand": {
+    "model_path": "./ressources/3d/models/blocks/sand-block.glb",
+    "id": "sandBlock",
+    "game-id": "minpy:sand",
+    "data": {
+      "strength": 1
+    },
+    "item": "sandItem"
+  },
+  "wood": {
+    "model_path": "./ressources/3d/models/blocks/wood-block.glb",
+    "id": "woodBlock",
+    "game-id": "minpy:wood",
+    "data": {
+      "strength": 4
+    },
+    "item": "woodItem"
+  },
+  "oak": {
+    "model_path": "./ressources/3d/models/blocks/oak-block.glb",
+    "id": "oakBlock",
+    "game-id": "minpy:oak",
+    "data": {
+      "strength": 0.3
+    },
+    "item": "oakItem"
+  },
+  "nether-rack": {
+    "model_path": "./ressources/3d/models/blocks/nether-rack-block.glb",
+    "id": "nether-rackBlock",
+    "game-id": "minpy:nether-rack",
+    "data": {
+      "strength": 0.3
+    },
+    "item": "nether-rackItem"
+  },
+  "iron-ore": {
+    "model_path": "./ressources/3d/models/blocks/iron-ore.glb",
+    "id": "iron-oreBlock",
+    "game-id": "minpy:iron-ore",
+    "data": {
+      "strength": 5,
+      "tool_w": 2
+    },
+    "item": "iron-oreItem"
+  },
+  "ender-portal": {
+    "model_path": "./ressources/3d/models/blocks/ender-portal.glb",
+    "id": "ender-portalBlock",
+    "game-id": "minpy:ender-portal",
+    "data": {
+      "strength": -1,
+      "tool_w": 1000
+    },
+    "item": "ender-portalItem"
+  },
+  "coal-ore": {
+    "model_path": "./ressources/3d/models/blocks/coal-ore.glb",
+    "id": "coal-oreBlock",
+    "game-id": "minpy:coal-ore",
+    "data": {
+      "strength": 5,
+      "tool_w": 2
+    },
+    "item": "coalItem"
+  },
+  "obsidian": {
+    "model_path": "./ressources/3d/models/blocks/obsidian-block.glb",
+    "id": "obsidianBlock",
+    "game-id": "minpy:obsidian",
+    "data": {
+      "strength": 20,
+      "tool_w": 5
+    },
+    "item": "coalItem"
+  },
+  "diamond-ore": {
+    "model_path": "./ressources/3d/models/blocks/diamond-ore.glb",
+    "id": "diamond-oreBlock",
+    "game-id": "minpy:diamond-ore",
+    "data": {
+      "strength": 5,
+      "tool_w": 4
+    },
+    "item": "diamond-oreItem"
+  },
+  "furnace": {
+    "model_path": "./ressources/3d/models/blocks/furnace-block.glb",
+    "id": "furnaceBlock",
+    "game-id": "minpy:furnace",
+    "data": {
+      "strength": 5,
+      "tool_w": 2
+    },
+    "item": "furnaceItem"
+  },
+  "crafting-table": {
+    "model_path": "./ressources/3d/models/blocks/crafting-table-block.glb",
+    "id": "crafting-tableBlock",
+    "game-id": "minpy:crafting-table",
+    "data": {
+      "strength": 4
+    },
+    "item": "crafting-tableItem"
+  },
+  "bedrock": {
+    "model_path": "./ressources/3d/models/blocks/bedrock.glb",
+    "id": "bedrockBlock",
+    "game-id": "minpy:bedrock",
+    "data": {
+      "strength": -1
+    },
+    "item": "bedrockItem"
+  }
+}

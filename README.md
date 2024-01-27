@@ -1,13 +1,21 @@
 # MinPY
 
-## MinPy est un project de Minecraft en python, même si le gameplay n'est pas parfait il ajoute des fonctionnalités avencées
+## MinPy est un project de Minecraft en python, même si le gameplay n'est pas parfait il ajoute des fonctionnalités avancées
 
 Pour l'instant :
 
 - GamePlay de base (bouger)
 - Casser/Poser des blocks
-- Génération du terrain par "noise"
+- Génération du terrain par "noise" ou random (vas être retiré dans des futures mises à jours)
 - Génération du terrain au fur et à mesure
+- Multijoueur
+- Achievements
+- Info in-game
+- Sauvegarder/Jouer son monde
+- GUI de départ (+copier/supprimer/créer des mondes)
+- Zombie
+- Cochon
+- 3 dimensions
 
 ## Table des Matières
 
@@ -19,8 +27,8 @@ Pour l'instant :
 
 ## Prérequis
 
-- Python et pip (Linux: `apt install python3 | apt install py-pip`, Windows: Microsoft Store)
-- Panda3d: (`pip install panda3d`)
+- Python et pip (Linux: `apt install python3.10 | apt install py-pip` /!\ NON DISPONIBLE PAR DEFAULT https://askubuntu.com/questions/682869/how-do-i-install-a-different-python-version-using-apt-get, Windows: Microsoft Store) /!\ VERSION 3.10
+- Panda3d: (`pip install panda3d`) (Pour le SinglePlayer)
 - Noise (`pip install noise`)
 
 ## Installation
@@ -29,8 +37,13 @@ Pour l'instant :
 
 ## Utilisation
 
-- executer python main.py (vous devez être dans le dossier du project)
+- executer python MinPy.py (vous devez être dans le dossier du project)
+- Ex: ```python
+  cd Downloads
+  cd minpy
+  python3.10 main.py
 
+```
 ## Contribuer
 
 Toute demande serait volentier acceptée
@@ -65,3 +78,4 @@ SOFTWARE.
 "Minecraft - Pig" (https://skfb.ly/6SRyX) by Vincent Yanez is licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/4.0/).
 A lot of code by : https://github.com/shaunwa/cbt-panda3d-minecraft
 ender-dragon https://sketchfab.com/3d-models/minecraft-ender-hydra-3-headed-ender-dragon-9fdaa7bf7dbe499482d10705cbe366d2
+```
