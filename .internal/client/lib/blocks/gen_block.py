@@ -72,7 +72,7 @@ class GenBlocks(ShowBase):
                             time.sleep(1)
                             # Code côté client pour se connecter au deuxième socket
                             GEN_second_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                            GEN_second_client.connect(('127.0.0.1', random_port))  # Assurez-vous de mettre la bonne adresse du serveur
+                            GEN_second_client.connect((self.showbase.argv, random_port))  # Assurez-vous de mettre la bonne adresse du serveur
                             self.world_uptown = ""
                             received_data = b""
                             while True:

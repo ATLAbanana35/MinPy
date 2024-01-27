@@ -259,7 +259,7 @@ def main():
                     self.timeline_control("get", "_X_"+str(random_port)+"_X_")
                     # Code côté client pour se connecter au deuxième socket
                     second_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                    second_client.connect(('127.0.0.1', random_port))  # Assurez-vous de mettre la bonne adresse du serveur
+                    second_client.connect((self.argv, random_port))  # Assurez-vous de mettre la bonne adresse du serveur
 
                     # Fermer la connexion du deuxième socket côté client
                     self.world_uptown = ""
